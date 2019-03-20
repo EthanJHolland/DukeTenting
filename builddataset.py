@@ -1,9 +1,8 @@
 import json
 import requests
-from csv import DictWriter
 from datetime import datetime, timedelta, date
 
-from datetimeconversions import *
+from utils import *
 from tentingstate import TentingState
 
 YEARS = ['2015', '2016', '2017', '2018', '2019']
@@ -36,9 +35,9 @@ def main():
 
             currDay += timedelta(days = 1) #go to next day
         
-        print('finished',year)
+        print('finished',year) #write out
     
-    writeData(data)
+    writeData('data.csv', data)
 
 def getTimeData(year, hour, dayNum, currDay):
     return {
@@ -67,13 +66,6 @@ def getWeatherData(dt):
         hours[hourDT] = {WEATHER_KEYS[k]:v for k,v in hour.items() if k in WEATHER_KEYS}
     
     return hours
-
-#reading in and writing out
-def writeData(data):
-    with open('data.csv', 'w') as f:
-        w = DictWriter(f, list(data[0].keys()), lineterminator='\n')
-        w.writeheader()
-        w.writerows(data)
 
 if __name__=='__main__':
     main()

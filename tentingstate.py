@@ -1,7 +1,7 @@
 from csv import DictReader
 from datetime import datetime, timedelta, date
 
-from datetimeconversions import *
+from utils import *
 
 class TentingState():
     PERIODS=['black','blue','white']

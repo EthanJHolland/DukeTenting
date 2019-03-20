@@ -1,3 +1,4 @@
+from csv import DictWriter, DictReader
 from datetime import datetime, timedelta, date
 
 #conversions to/from datetime objects
@@ -18,3 +19,14 @@ def unixToDT(unix):
 
 def dtToMidnight(dt): #return new dt representing midnight of the passed day
     return dt.replace(hour=0, minute=0, second=0)
+
+#basic read in and write out out
+def readData(filename):
+    with open(filename) as f:
+        return [row for row in DictReader(f)]
+
+def writeData(filename, data):
+    with open(filename, 'w') as f:
+        w = DictWriter(f, list(data[0].keys()), lineterminator='\n')
+        w.writeheader()
+        w.writerows(data)
