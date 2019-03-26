@@ -25,26 +25,27 @@
         colorCycle = ()=>"black";//d3.scale.category10(),
         colorPropertyName = null,
         display = "rect",
-        beginning = 0,
+        beginning = -1,
+        ending = -1,
         labelMargin = 0,
-        ending = 0,
-        margin = {left: 30, right:30, top: 30, bottom:30},
+        margin = {left: 10, right:10, top: 10, bottom:10},
         stacked = false,
+        topAndBottom = false;
         rotateTicks = false,
         timeIsRelative = false,
         fullLengthBackgrounds = false,
         itemHeight = 5,
-        itemMargin = 5,
+        itemMargin = 0,
         navMargin = 60,
-        showTimeAxis = true,
+        showTimeAxis = false,
         showAxisTop = false,
         showTodayLine = false,
         timeAxisTick = false,
         timeAxisTickFormat = {stroke: "stroke-dasharray", spacing: "4 10"},
         showTodayFormat = {marginTop: 25, marginBottom: 0, width: 1, color: colorCycle},
-        showBorderLine = true,
+        showBorderLine = false,
         showBorderFormat = {marginTop: 25, marginBottom: 0, width: 1, color: colorCycle},
-        midnightBorderFormat = {marginTop: 0, marginBottom: 0, width: 1, color: colorCycle},
+        midnightBorderFormat = {marginTop: margin.top, marginBottom: margin.bottom, width: 1, color: colorCycle},
         showAxisHeaderBackground = false,
         showAxisNav = false,
         showAxisCalendarYear = false,
@@ -213,10 +214,10 @@
           });
         });
 
-        if (ending === 0) {
+        if (ending === -1) {
           ending = maxTime;
         }
-        if (beginning === 0) {
+        if (beginning === -1) {
           beginning = minTime;
         }
       }
@@ -239,6 +240,8 @@
       } else {
         xAxis.ticks(tickFormat.numTicks || tickFormat.tickTime, tickFormat.tickInterval);
       }
+
+      setHeight();
 
       // draw the chart
       g.each(function(d, i) {
@@ -264,7 +267,7 @@
               return (d.ending_time - d.starting_time) * scaleFactor;
             })
             .attr("cy", function(d, i) {
-                return getStackPosition(d, i) + itemHeight/2;
+                return getStackPosition(d, i);
             })
             .attr("cx", getXPos)
             .attr("r", itemHeight / 2)
@@ -341,6 +344,10 @@
           }
 
           function getStackPosition(d, i) {
+            if (topAndBottom){
+              if(index == 0) return margin.top;
+              return height - margin.bottom - itemHeight;
+            }
             if (stacked) {
               return margin.top + (itemHeight + itemMargin) * yAxisMapping[index];
             }
@@ -606,6 +613,11 @@
       return timeline;
     };
 
+    timeline.topAndBottom = function () {
+      topAndBottom = !topAndBottom;
+      return timeline;
+    }
+
     timeline.relativeTime = function() {
       timeIsRelative = !timeIsRelative;
       return timeline;
@@ -701,14 +713,23 @@
   };
 })();
 
-var width = 500;
+const width = 500;
+const height = 100;
 
-function timelineRect(testData) {
-  var chart = d3.timeline().showTimeAxis();
-  var svg = d3.select("#timeline").append("svg").attr("width", width)
-    .datum(testData).call(chart);
+function makeTimeline(data) {
+  data.forEach((yearData) => {
+    console.log(yearData.midnights[0])
+    console.log(yearData.midnights[yearData.midnights.length-1]);
+    var chart = d3.timeline()
+      .topAndBottom()
+      .itemHeight(1)
+      .beginning(yearData.midnights[0]) //start at first midnight...
+      .ending(yearData.midnights[yearData.midnights.length-1]); //...and continue up to last midnight
+    var svg = d3.select("#timeline"+yearData.year).append("svg").attr("width", width).attr("height",height)
+      .datum([yearData, yearData]).call(chart);
+  });
 }
 
 d3.json("/tentchecks.json", function(data) {
-  timelineRect(data);
+  makeTimeline(data);
 });
