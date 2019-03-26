@@ -22,7 +22,7 @@
           tickSize: 6,
           tickValues: null
         },
-        colorCycle = d3.scale.category10(),
+        colorCycle = ()=>"black";//d3.scale.category10(),
         colorPropertyName = null,
         display = "rect",
         beginning = 0,
@@ -44,6 +44,7 @@
         showTodayFormat = {marginTop: 25, marginBottom: 0, width: 1, color: colorCycle},
         showBorderLine = true,
         showBorderFormat = {marginTop: 25, marginBottom: 0, width: 1, color: colorCycle},
+        midnightBorderFormat = {marginTop: 0, marginBottom: 0, width: 1, color: colorCycle},
         showAxisHeaderBackground = false,
         showAxisNav = false,
         showAxisCalendarYear = false,
@@ -398,6 +399,15 @@
           });
         });
       }
+
+      g.each(function (d, i) {
+        d.forEach(function (datum) {
+          var midnights = datum.midnights;
+          midnights.forEach(function (midnight) {
+            appendLine(xScale(midnight), midnightBorderFormat);
+          });
+        });
+      });
 
       if (showTodayLine) {
         var todayLine = xScale(new Date());
