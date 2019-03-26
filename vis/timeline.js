@@ -1,12 +1,11 @@
-//from https://codepen.io/manglass/pen/MvLBRz
-
 (function () {
   d3.timeline = function() {
     var DISPLAY_TYPES = ["circle", "rect"];
 
     var hover = function () {},
-        mouseover = function () {},
-        mouseout = function () {},
+        mouseover = function(){return tooltip.style("visibility", "visible");},
+        mousemove = function(d){return tooltip.style("top", (event.pageY-10)+"px").style("left",(event.pageX+10)+"px").text(d.message);},
+        mouseout = function(){return tooltip.style("visibility", "hidden");},
         click = function () {},
         scroll = function () {},
         labelFunction = function(label) { return label; },
@@ -283,7 +282,7 @@
               return colorCycle(index);
             })
             .on("mousemove", function (d, i) {
-              hover(d, index, datum);
+              mousemove(d, index, datum);
             })
             .on("mouseover", function (d, i) {
               mouseover(d, i, datum);
@@ -538,6 +537,12 @@
       return timeline;
     };
 
+    timeline.mousemove = function (mousemoveFunc) {
+      if (!arguments.length) return mosemove;
+      mousemove = mousemoveFunc;
+      return timeline;
+    };
+
     timeline.mouseout = function (mouseoutFunc) {
       if (!arguments.length) return mouseout;
       mouseout = mouseoutFunc;
@@ -688,9 +693,9 @@
 
 var testData = [
   {times: [
-    {"starting_time": 5, "ending_time": 7},
-    {"starting_time": 1, "ending_time": 3},
-    {"starting_time": 9, "ending_time": 12}
+    {"starting_time": 5, "ending_time": 7, "message": "mess"},
+    {"starting_time": 1, "ending_time": 3, "message": "tc"},
+    {"starting_time": 9, "ending_time": 12, "message": "hw"}
   ]}
 ];
 var width = 500;
