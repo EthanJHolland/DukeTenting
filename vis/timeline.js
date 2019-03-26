@@ -22,7 +22,9 @@
           tickSize: 6,
           tickValues: null
         },
-        colorCycle = ()=>"black";//d3.scale.category10(),
+        timelineColor = () => "black";//the color of the actual lines on the timeline
+        annotationColor = () => "black"; //the color of other lines and annotations
+        backgroundColor = () => "white"; //the color of the background
         colorPropertyName = null,
         display = "rect",
         beginning = -1,
@@ -42,10 +44,10 @@
         showTodayLine = false,
         timeAxisTick = false,
         timeAxisTickFormat = {stroke: "stroke-dasharray", spacing: "4 10"},
-        showTodayFormat = {marginTop: 25, marginBottom: 0, width: 1, color: colorCycle},
+        showTodayFormat = {marginTop: 25, marginBottom: 0, width: 1, color: annotationColor},
         showBorderLine = false,
-        showBorderFormat = {marginTop: 25, marginBottom: 0, width: 1, color: colorCycle},
-        midnightBorderFormat = {marginTop: margin.top, marginBottom: margin.bottom, width: 1, color: colorCycle},
+        showBorderFormat = {marginTop: margin.top, marginBottom: margin.bottom, width: 1, color: annotationColor},
+        midnightBorderFormat = {marginTop: margin.top, marginBottom: margin.bottom, width: 1, color: annotationColor},
         showAxisHeaderBackground = false,
         showAxisNav = false,
         showAxisCalendarYear = false,
@@ -135,14 +137,14 @@
     };
 
     var appendBackgroundBar = function (yAxisMapping, index, g, data, datum) {
-      var greenbarYAxis = ((itemHeight + itemMargin) * yAxisMapping[index]) + margin.top;
+      var y = topAndBottom ? getBottom(): ((itemHeight + itemMargin) * yAxisMapping[index]) + margin.top;
       g.selectAll("svg").data(data).enter()
         .insert("rect")
         .attr("class", "row-green-bar")
         .attr("x", fullLengthBackgrounds ? 0 : margin.left)
         .attr("width", fullLengthBackgrounds ? width : (width - margin.right - margin.left))
-        .attr("y", greenbarYAxis)
-        .attr("height", itemHeight)
+        .attr("y", y-0.25) //offset y and height slightly so that background appears a tiny bit above the top and bottom to look like =======
+        .attr("height", itemHeight+0.5)
         .attr("fill", backgroundColor instanceof Function ? backgroundColor(datum, index) : backgroundColor)
       ;
     };
@@ -170,6 +172,7 @@
         maxTime = 0;
 
       setWidth();
+      setHeight();
 
       // check if the user wants relative time
       // if so, substract the first timestamp from each subsequent timestamps
@@ -241,8 +244,6 @@
         xAxis.ticks(tickFormat.numTicks || tickFormat.tickTime, tickFormat.tickInterval);
       }
 
-      setHeight();
-
       // draw the chart
       g.each(function(d, i) {
         chartData = d;
@@ -255,6 +256,33 @@
             console.warn("d3Timeline Warning: Ids per dataset is deprecated in favor of a 'class' key. Ids are now per data element.");
           }
 
+          //draw vertical line for every midnight
+          g.each(function (d, i) {
+            d.forEach(function (datum) {
+              var midnights = datum.midnights;
+              midnights.forEach(function (midnight) {
+                appendLine(xScale(midnight), midnightBorderFormat);
+              });
+            });
+          });
+
+          if (showBorderLine){
+            g.each(function (d, i) {
+              d.forEach(function (datum) {
+                var times = datum.times;
+                times.forEach(function (time) {
+                  appendBorderLine(xScale(time.starting_time), getBottom()+itemHeight/2, itemHeight*2, showBorderFormat);
+                });
+              });
+            });
+          }
+    
+          if (showTodayLine) {
+            var todayLine = xScale(new Date());
+            appendLine(todayLine, showTodayFormat);
+          }
+          
+          appendTopBar(showBorderFormat);
           if (backgroundColor) { appendBackgroundBar(yAxisMapping, index, g, data, datum); }
 
           g.selectAll("svg").data(data).enter()
@@ -278,12 +306,12 @@
               if( colorPropertyName ){
                 dColorPropName = d[colorPropertyName];
                 if ( dColorPropName ) {
-                  return colorCycle( dColorPropName );
+                  return timelineColor( dColorPropName );
                 } else {
-                  return colorCycle( datum[colorPropertyName] );
+                  return timelineColor( datum[colorPropertyName] );
                 }
               }
-              return colorCycle(index);
+              return timelineColor(index);
             })
             .on("mousemove", function (d, i) {
               mousemove(d, index, datum);
@@ -345,8 +373,8 @@
 
           function getStackPosition(d, i) {
             if (topAndBottom){
-              if(index == 0) return margin.top;
-              return height - margin.bottom - itemHeight;
+              if(index==0)return getBottom();
+              return getTop();
             }
             if (stacked) {
               return margin.top + (itemHeight + itemMargin) * yAxisMapping[index];
@@ -393,33 +421,7 @@
       }
 
       var gSize = g[0][0].getBoundingClientRect();
-      setHeight();
-
-      if (showBorderLine) {
-        g.each(function (d, i) {
-          d.forEach(function (datum) {
-            var times = datum.times;
-            times.forEach(function (time) {
-              appendLine(xScale(time.starting_time), showBorderFormat);
-              // appendLine(xScale(time.ending_time), showBorderFormat);
-            });
-          });
-        });
-      }
-
-      g.each(function (d, i) {
-        d.forEach(function (datum) {
-          var midnights = datum.midnights;
-          midnights.forEach(function (midnight) {
-            appendLine(xScale(midnight), midnightBorderFormat);
-          });
-        });
-      });
-
-      if (showTodayLine) {
-        var todayLine = xScale(new Date());
-        appendLine(todayLine, showTodayFormat);
-      }
+      // setHeight();
 
       function getXPos(d, i) {
         return margin.left + (d.starting_time - beginning) * scaleFactor;
@@ -468,6 +470,16 @@
         // if both are set, do nothing
       }
 
+      function appendTopBar(lineFormat){
+        gParent.append("svg:line")
+          .attr("x1", fullLengthBackgrounds ? 0 : margin.left)
+          .attr("y1", getTop())
+          .attr("x2", fullLengthBackgrounds ? width : (width - margin.right))
+          .attr("y2", getTop())
+          .style("stroke", lineFormat.color)
+          .style("stroke-width", lineFormat.width);
+      }
+
       function appendLine(lineScale, lineFormat) {
         gParent.append("svg:line")
           .attr("x1", lineScale)
@@ -478,6 +490,24 @@
           .style("stroke-width", lineFormat.width);
       }
 
+      function appendBorderLine(x, y, h, lineFormat) {
+        gParent.append("svg:line")
+        .attr("x1", x)
+        .attr("y1", y-h/2)
+        .attr("x2", x)
+        .attr("y2", y+h/2)
+        .style("stroke", lineFormat.color)//"rgb(6,120,155)")
+        .style("stroke-width", lineFormat.width);
+      }
+
+    }
+
+    function getTop(){
+      return margin.top;
+    }
+
+    function getBottom(){
+      return height - margin.bottom - itemHeight;
     }
 
     // SETTINGS
@@ -578,9 +608,21 @@
       return timeline;
     };
 
-    timeline.colors = function (colorFormat) {
-      if (!arguments.length) return colorCycle;
-      colorCycle = colorFormat;
+    timeline.color = function (color) {
+      if (!arguments.length) return timelineColor;
+      timelineColor = (() => color);
+      return timeline;
+    };
+
+    timeline.annotationColor = function (color) {
+      if (!arguments.length) return annotationColor;
+      annotationColor = (() => color);
+      return timeline;
+    };
+
+    timeline.backgroundColor = function (color) {
+      if (!arguments.length) return backgroundColor;
+      backgroundColor = (() => color);
       return timeline;
     };
 
@@ -658,12 +700,6 @@
 
     };
 
-    timeline.background = function (color) {
-      if (!arguments.length) return backgroundColor;
-      backgroundColor = color;
-      return timeline;
-    };
-
     timeline.showTimeAxis = function () {
       showTimeAxis = !showTimeAxis;
       return timeline;
@@ -718,15 +754,16 @@ const height = 100;
 
 function makeTimeline(data) {
   data.forEach((yearData) => {
-    console.log(yearData.midnights[0])
-    console.log(yearData.midnights[yearData.midnights.length-1]);
     var chart = d3.timeline()
       .topAndBottom()
-      .itemHeight(1)
+      .itemHeight(2)
+      .color("white")
+      .backgroundColor("black")
+      .showBorderLine()
       .beginning(yearData.midnights[0]) //start at first midnight...
       .ending(yearData.midnights[yearData.midnights.length-1]); //...and continue up to last midnight
     var svg = d3.select("#timeline"+yearData.year).append("svg").attr("width", width).attr("height",height)
-      .datum([yearData, yearData]).call(chart);
+      .datum([yearData]).call(chart);
   });
 }
 
