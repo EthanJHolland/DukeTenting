@@ -13,8 +13,9 @@
         "times": [
             {"starting_time": 3, "ending_time": 4, "message": "a"},
             {"starting_time": 5, "ending_time": 6, "message": "bc"},
-            {"starting_time": 9, "ending_time": 12, "message": "def"}
+            {"starting_time": 9, "ending_time": 12, "message": "def"},
+            {"starting_time": 13, "ending_time": 14, "message": "ghij"}
         ],
-        "midnights": [0,4,8,12,16]
+        "midnights": [0,4,8,12,16,20]
     }
 ]

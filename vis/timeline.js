@@ -373,7 +373,7 @@
 
           function getStackPosition(d, i) {
             if (topAndBottom){
-              if(index==0)return getBottom();
+              if(index == 0)return getBottom();
               return getTop();
             }
             if (stacked) {
@@ -749,12 +749,16 @@
   };
 })();
 
-const width = 500;
 const height = 100;
+const margins = {left: 10, right:10, top: 10, bottom:10};
 
 function makeTimeline(data) {
   data.forEach((yearData) => {
+    numDays = yearData.midnights.length - 1;
+    width = numDays * height + margins.left + margins.right;
+
     var chart = d3.timeline()
+      .margin(margins)
       .topAndBottom()
       .itemHeight(2)
       .color("white")
