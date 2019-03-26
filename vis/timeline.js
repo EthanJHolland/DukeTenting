@@ -691,19 +691,14 @@
   };
 })();
 
-var testData = [
-  {times: [
-    {"starting_time": 5, "ending_time": 7, "message": "mess"},
-    {"starting_time": 1, "ending_time": 3, "message": "tc"},
-    {"starting_time": 9, "ending_time": 12, "message": "hw"}
-  ]}
-];
 var width = 500;
 
-function timelineRect() {
+function timelineRect(testData) {
   var chart = d3.timeline().showTimeAxis();
   var svg = d3.select("#timeline").append("svg").attr("width", width)
     .datum(testData).call(chart);
 }
 
-timelineRect();
+d3.json("/tentchecks.json", function(data) {
+  timelineRect(data);
+});
