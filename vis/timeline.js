@@ -11,7 +11,6 @@
         labelFunction = function(label) { return label; },
         navigateLeft = function () {},
         navigateRight = function () {},
-        orient = "bottom",
         width = null,
         height = null,
         rowSeparatorsColor = null,
@@ -22,6 +21,11 @@
           tickSize: 6,
           tickValues: null
         },
+        tempTickFormat = {
+          tickValues: [0,15,30,45,60],
+          majorTickLength: 6,
+          minorTickLength: 4
+        }
         timelineColor = () => "black";//the color of the actual lines on the timeline
         annotationColor = () => "black"; //the color of other lines and annotations
         backgroundColor = () => "white"; //the color of the background
@@ -40,20 +44,42 @@
         itemMargin = 0,
         navMargin = 60,
         showTimeAxis = false,
+        showTempAxis = false,
         showAxisTop = false,
-        showTodayLine = false,
         timeAxisTick = false,
         timeAxisTickFormat = {stroke: "stroke-dasharray", spacing: "4 10"},
-        showTodayFormat = {marginTop: 25, marginBottom: 0, width: 1, color: annotationColor},
         showBorderLine = false,
-        showBorderFormat = {marginTop: margin.top, marginBottom: margin.bottom, width: 1, color: annotationColor},
-        midnightBorderFormat = {marginTop: margin.top, marginBottom: margin.bottom, width: 1, color: annotationColor},
+        showBorderFormat = {width: 1, color: annotationColor},
+        midnightBorderFormat = {width: 1, color: annotationColor},
+        tempMin = 0,
+        tempMax = 60,
         showAxisHeaderBackground = false,
         showAxisNav = false,
         showAxisCalendarYear = false,
         axisBgColor = "white",
         chartData = {}
       ;
+
+    var appendTempAxis = function(g, yTempScale) {
+      var isMajorTick = (i) => i%2 == 0;
+
+      var yTempAxis = d3.svg.axis()
+        .scale(yTempScale)
+        .orient("left")
+        .tickValues(tempTickFormat.tickValues)
+        .tickSize(tempTickFormat.majorTickLength)
+        .tickFormat((d, i) => isMajorTick(i) ? d+"\u00B0" : "")
+
+      var q = g.append("g")
+        .attr("class", "axis")
+        .attr("transform", "translate(" + margin.left + "," +  0 + ")")
+        .call(yTempAxis)
+        .call(g => g.select(".domain").remove()) //remove axis line, leaving only ticks, labels
+
+      q.selectAll("g")
+        .filter((d, i) => !isMajorTick(i))
+        .attr("stroke-dasharray", tempTickFormat.minorTickLength+","+tempTickFormat.majorTickLength)
+    }
 
     var appendTimeAxis = function(g, xAxis, yPosition) {
 
@@ -137,7 +163,7 @@
     };
 
     var appendBackgroundBar = function (yAxisMapping, index, g, data, datum) {
-      var y = topAndBottom ? getBottom(): ((itemHeight + itemMargin) * yAxisMapping[index]) + margin.top;
+      var y = topAndBottom ? getBottom() - itemHeight/2: ((itemHeight + itemMargin) * yAxisMapping[index]) + margin.top;
       g.selectAll("svg").data(data).enter()
         .insert("rect")
         .attr("class", "row-green-bar")
@@ -227,14 +253,19 @@
 
       var scaleFactor = (1/(ending - beginning)) * (width - margin.left - margin.right);
 
-      // draw the axis
+      //define various scales
       var xScale = d3.time.scale()
         .domain([beginning, ending])
         .range([margin.left, width - margin.right]);
+      
+      var yTempScale = d3.scale.linear()
+        .domain([tempMin, tempMax])
+        .range([getBottom(), getTop()]);
 
+      // draw the axes
       var xAxis = d3.svg.axis()
         .scale(xScale)
-        .orient(orient)
+        .orient("bottom")
         .tickFormat(tickFormat.format)
         .tickSize(tickFormat.tickSize);
 
@@ -244,7 +275,44 @@
         xAxis.ticks(tickFormat.numTicks || tickFormat.tickTime, tickFormat.tickInterval);
       }
 
-      // draw the chart
+      //draw vertical line for every midnight
+      g.each(function (d, i) {
+        d.forEach(function (datum) {
+          var midnights = datum.midnights;
+          midnights.forEach(function (midnight) {
+            appendLine(xScale(midnight), midnightBorderFormat);
+          });
+        });
+      });
+
+      //add temperature line graph
+      var valueline = d3.svg.line()
+        .x((d) => xScale(d.hour))
+        .y((d) => yTempScale(d.temperature));
+      g.each((d,i) => {
+        d.forEach((datum) => {
+          g.append("path")
+            .attr("class", "line")
+            .attr("d", valueline(datum.hours));
+        })
+      })
+
+      //draw tick for each tentcheck
+      if (showBorderLine){
+        g.each(function (d, i) {
+          d.forEach(function (datum) {
+            var times = datum.times;
+            times.forEach(function (time) {
+              if(time.starting_time > beginning) appendBorderLine(xScale(time.starting_time), getBottom(), itemHeight*2, showBorderFormat);
+            });
+          });
+        });
+      }
+      
+      //add line to form top of boxes
+      appendTopBar(showBorderFormat);
+
+      // draw the timeline itself
       g.each(function(d, i) {
         chartData = d;
         d.forEach( function(datum, index){
@@ -256,34 +324,8 @@
             console.warn("d3Timeline Warning: Ids per dataset is deprecated in favor of a 'class' key. Ids are now per data element.");
           }
 
-          //draw vertical line for every midnight
-          g.each(function (d, i) {
-            d.forEach(function (datum) {
-              var midnights = datum.midnights;
-              midnights.forEach(function (midnight) {
-                appendLine(xScale(midnight), midnightBorderFormat);
-              });
-            });
-          });
-
-          if (showBorderLine){
-            g.each(function (d, i) {
-              d.forEach(function (datum) {
-                var times = datum.times;
-                times.forEach(function (time) {
-                  appendBorderLine(xScale(time.starting_time), getBottom()+itemHeight/2, itemHeight*2, showBorderFormat);
-                });
-              });
-            });
-          }
-    
-          if (showTodayLine) {
-            var todayLine = xScale(new Date());
-            appendLine(todayLine, showTodayFormat);
-          }
-          
-          appendTopBar(showBorderFormat);
-          if (backgroundColor) { appendBackgroundBar(yAxisMapping, index, g, data, datum); }
+          //show background of bottom in black so can see time not in tent in white
+          if (backgroundColor) appendBackgroundBar(yAxisMapping, index, g, data, datum);
 
           g.selectAll("svg").data(data).enter()
             .append(function(d, i) {
@@ -373,7 +415,7 @@
 
           function getStackPosition(d, i) {
             if (topAndBottom){
-              if(index == 0)return getBottom();
+              if(index == 0)return getBottom() - itemHeight/2;
               return getTop();
             }
             if (stacked) {
@@ -393,6 +435,7 @@
       var belowLastItem = (margin.top + (itemHeight + itemMargin) * maxStack);
       var aboveFirstItem = margin.top;
       var timeAxisYPosition = showAxisTop ? aboveFirstItem : belowLastItem;
+      if (showTempAxis) { appendTempAxis(g, yTempScale); }
       if (showTimeAxis) { appendTimeAxis(g, xAxis, timeAxisYPosition); }
       if (timeAxisTick) { appendTimeAxisTick(g, xAxis, maxStack); }
 
@@ -415,7 +458,7 @@
         g.selectAll(".tick text")
           .attr("transform", function(d) {
             return "rotate(" + rotateTicks + ")translate("
-              + (this.getBBox().width / 2 + 10) + "," // TODO: change this 10
+              + (this.getBBox().width / 2 + 10) + ","
               + this.getBBox().height / 2 + ")";
           });
       }
@@ -483,18 +526,18 @@
       function appendLine(lineScale, lineFormat) {
         gParent.append("svg:line")
           .attr("x1", lineScale)
-          .attr("y1", lineFormat.marginTop)
+          .attr("y1", lineFormat.marginTop ? lineFormat.marginTop: getTop()) //default to chart top if unspecified
           .attr("x2", lineScale)
-          .attr("y2", height - lineFormat.marginBottom)
-          .style("stroke", lineFormat.color)//"rgb(6,120,155)")
+          .attr("y2", lineFormat.marginBottom ? (height - lineFormat.marginBottom): getBottom()) //default to chart bottom if unspecified
+          .style("stroke", lineFormat.color)
           .style("stroke-width", lineFormat.width);
       }
 
       function appendBorderLine(x, y, h, lineFormat) {
         gParent.append("svg:line")
-        .attr("x1", x)
+        .attr("x1", x - lineFormat.width/2)
         .attr("y1", y-h/2)
-        .attr("x2", x)
+        .attr("x2", x - lineFormat.width/2)
         .attr("y2", y+h/2)
         .style("stroke", lineFormat.color)//"rgb(6,120,155)")
         .style("stroke-width", lineFormat.width);
@@ -507,7 +550,7 @@
     }
 
     function getBottom(){
-      return height - margin.bottom - itemHeight;
+      return height - margin.bottom;
     }
 
     // SETTINGS
@@ -515,12 +558,6 @@
     timeline.margin = function (p) {
       if (!arguments.length) return margin;
       margin = p;
-      return timeline;
-    };
-
-    timeline.orient = function (orientation) {
-      if (!arguments.length) return orient;
-      orient = orientation;
       return timeline;
     };
 
@@ -676,17 +713,6 @@
       return timeline;
     };
 
-    timeline.showToday = function () {
-      showTodayLine = !showTodayLine;
-      return timeline;
-    };
-
-    timeline.showTodayFormat = function(todayFormat) {
-      if (!arguments.length) return showTodayFormat;
-      showTodayFormat = todayFormat;
-      return timeline;
-    };
-
     timeline.colorProperty = function(colorProp) {
       if (!arguments.length) return colorPropertyName;
       colorPropertyName = colorProp;
@@ -698,6 +724,11 @@
       rowSeparatorsColor = color;
       return timeline;
 
+    };
+
+    timeline.showTempAxis = function () {
+      showTempAxis = !showTempAxis;
+      return timeline;
     };
 
     timeline.showTimeAxis = function () {
@@ -749,13 +780,13 @@
   };
 })();
 
-const height = 100;
-const margins = {left: 10, right:10, top: 10, bottom:10};
+const height = 200;
+const margins = {left: 40, right: 40, top: 10, bottom: 10};
 
 function makeTimeline(data) {
   data.forEach((yearData) => {
     numDays = yearData.midnights.length - 1;
-    width = numDays * height + margins.left + margins.right;
+    width = numDays * (height - margins.top - margins.bottom) + margins.left + margins.right;
 
     var chart = d3.timeline()
       .margin(margins)
@@ -764,9 +795,13 @@ function makeTimeline(data) {
       .color("white")
       .backgroundColor("black")
       .showBorderLine()
+      .showTempAxis()
       .beginning(yearData.midnights[0]) //start at first midnight...
       .ending(yearData.midnights[yearData.midnights.length-1]); //...and continue up to last midnight
-    var svg = d3.select("#timeline"+yearData.year).append("svg").attr("width", width).attr("height",height)
+    var svg = d3.select("#timeline"+yearData.year).append("svg")
+      .attr("width", width)
+      .attr("height",height)
+      .style("font", "10px times")
       .datum([yearData]).call(chart);
   });
 }

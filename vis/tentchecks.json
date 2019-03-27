@@ -6,16 +6,34 @@
             {"starting_time": 1, "ending_time": 3, "message": "tc"},
             {"starting_time": 9, "ending_time": 12, "message": "hw"}
         ],
-        "midnights": [0,4,8,12,16]
+        "midnights": [0,4,8,12,16],
+        "hours": [
+            {"hour": 11, "temperature": 15},
+            {"hour": 12, "temperature": 20},
+            {"hour": 13, "temperature": 10},
+            {"hour": 14, "temperature": 20},
+            {"hour": 15, "temperature": 30}
+        ]
     },
     {
         "year": "2018",
         "times": [
+            {"starting_time": 0, "ending_time": 2, "message": "[before tenting starts]"},
             {"starting_time": 3, "ending_time": 4, "message": "a"},
             {"starting_time": 5, "ending_time": 6, "message": "bc"},
             {"starting_time": 9, "ending_time": 12, "message": "def"},
             {"starting_time": 13, "ending_time": 14, "message": "ghij"}
         ],
-        "midnights": [0,4,8,12,16,20]
+        "midnights": [0,4,8,12,16,20],
+        "hours": [
+            {"hour": 0, "temperature": 0},
+            {"hour": 1, "temperature": 15},
+            {"hour": 2, "temperature": -3},
+            {"hour": 3, "temperature": 10},
+            {"hour": 4, "temperature": 20},
+            {"hour": 5, "temperature": 30},
+            {"hour": 6, "temperature": 0},
+            {"hour": 7, "temperature": 60}
+        ]
     }
 ]
