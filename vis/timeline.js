@@ -25,10 +25,10 @@
           tickValues: [0,15,30,45,60],
           majorTickLength: 6,
           minorTickLength: 4
-        }
-        timelineColor = () => "black";//the color of the actual lines on the timeline
-        annotationColor = () => "black"; //the color of other lines and annotations
-        backgroundColor = () => "white"; //the color of the background
+        },
+        timelineColor = () => "black",//the color of the actual lines on the timeline
+        annotationColor = () => "black", //the color of other lines and annotations
+        backgroundColor = () => "white", //the color of the background
         colorPropertyName = null,
         display = "rect",
         beginning = -1,
@@ -108,6 +108,7 @@
         .text(calendarLabel)
       ;
     };
+    
     var appendTimeAxisNav = function (g) {
       var timelineBlocks = 6;
       var leftNavMargin = (margin.left - navMargin);
@@ -193,9 +194,7 @@
       var gParentItem = d3.select(gParent[0][0]);
 
       var yAxisMapping = {},
-        maxStack = 1,
-        minTime = 0,
-        maxTime = 0;
+        maxStack = 1;
 
       setWidth();
       setHeight();
@@ -219,36 +218,21 @@
         });
       }
 
-      // check how many stacks we're gonna need
-      // do this here so that we can draw the axis before the graph
-      if (stacked || ending === 0 || beginning === 0) {
+      // figure out beginning and ending times if they are unspecified
+      if (ending === -1 || beginning === -1) {
+        minTime = -1,
+        maxTime = -1;
+
         g.each(function (d, i) {
           d.forEach(function (datum, index) {
-
-            // create y mapping for stacked graph
-            if (stacked && Object.keys(yAxisMapping).indexOf(index) == -1) {
-              yAxisMapping[index] = maxStack;
-              maxStack++;
-            }
-
-            // figure out beginning and ending times if they are unspecified
             datum.times.forEach(function (time, i) {
-              if(beginning === 0)
-                if (time.starting_time < minTime || (minTime === 0 && timeIsRelative === false))
-                  minTime = time.starting_time;
-              if(ending === 0)
-                if (time.ending_time > maxTime)
-                  maxTime = time.ending_time;
+              if(beginning === -1 && (time.starting_time < minTime || (minTime === -1 && timeIsRelative === false))) minTime = time.starting_time;
+              if(ending === -1 && time.ending_time > maxTime) maxTime = time.ending_time;
             });
           });
         });
-
-        if (ending === -1) {
-          ending = maxTime;
-        }
-        if (beginning === -1) {
-          beginning = minTime;
-        }
+        if (ending === -1) ending = maxTime;
+        if (beginning === -1) beginning = minTime;
       }
 
       var scaleFactor = (1/(ending - beginning)) * (width - margin.left - margin.right);
