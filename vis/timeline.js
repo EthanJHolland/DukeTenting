@@ -197,23 +197,24 @@
           .style("stroke-width", lineFormat.width);
       }
 
-      function appendBorderLine(x, y, h, lineFormat) {
-        gParent.append("svg:line")
-        .attr("x1", x - lineFormat.width/2)
-        .attr("y1", y-h/2)
-        .attr("x2", x - lineFormat.width/2)
-        .attr("y2", y+h/2)
-        .style("stroke", lineFormat.color)//"rgb(6,120,155)")
-        .style("stroke-width", lineFormat.width);
-      }
-
       function appendTentCheckTicks(){
         if (showBorderLine){
           g.each(function (d, i) {
             d.forEach(function (datum) {
               var times = datum.times;
               times.forEach(function (time) {
-                if(time.starting_time > beginning) appendBorderLine(xScale(time.starting_time), getBottom(), itemHeight*2, showBorderFormat);
+                if(time.starting_time > beginning){
+                  var x = xScale(time.starting_time);
+                  var y = getBottom();
+
+                  gParent.append("svg:line")
+                    .attr("x1", x - showBorderFormat.width/2)
+                    .attr("y1", y - itemHeight*2)
+                    .attr("x2", x - showBorderFormat.width/2)
+                    .attr("y2", y + itemHeight)
+                    .style("stroke", showBorderFormat.color)
+                    .style("stroke-width", showBorderFormat.width);
+                }
               });
             });
           });
