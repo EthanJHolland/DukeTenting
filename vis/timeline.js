@@ -22,7 +22,7 @@
         tickValues: null
       },
       tempTickFormat = {
-        tickValues: [0,15,30,45,60],
+        tickValues: [25,37.5,50,67.5,75],
         majorTickLength: 6,
         minorTickLength: 4
       },
@@ -50,8 +50,8 @@
       showBorderLine = false,
       showBorderFormat = {width: 1, color: annotationColor},
       midnightBorderFormat = {width: 1, color: annotationColor},
-      tempMin = 0,
-      tempMax = 60,
+      tempMin = 25,
+      tempMax = 75,
       showAxisHeaderBackground = false,
       showAxisNav = false,
       showAxisCalendarYear = false,
@@ -744,7 +744,7 @@
 })();
 
 const height = 200;
-const margins = {left: 40, right: 40, top: 10, bottom: 10};
+const margins = {left: 40, right: 40, top: 15, bottom: 48};
 
 function makeTimeline(data) {
   data.forEach((yearData) => {
