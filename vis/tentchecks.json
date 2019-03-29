@@ -2,23 +2,6 @@
     {
         "year": "2017",
         "times": [
-            {"starting_time": 5, "ending_time": 7, "message": "mess"},
-            {"starting_time": 1, "ending_time": 3, "message": "tc"},
-            {"starting_time": 60, "ending_time": 62, "message": "hw"}
-        ],
-        "midnights": [0,24,48],
-        "hours": [
-            {"hour": 11, "temperature": 15},
-            {"hour": 12, "temperature": 20},
-            {"hour": 13, "temperature": 10},
-            {"hour": 14, "temperature": 20},
-            {"hour": 15, "temperature": 30}
-        ],
-        "people": []
-    },
-    {
-        "year": "2018",
-        "times": [
             {"starting_time": 0.3, "ending_time": 9, "message": "Celebratory grace until 9AM!"},
             {"starting_time": 24.25, "ending_time": 25.25, "message": "Tent check! Grace until 1:15."},
             {"starting_time": 40.8, "ending_time": 47, "message": "Tent check! Grace until 11PM. Women's hoops tonight versus Louisville  see you there!"},
@@ -175,6 +158,42 @@
             {"start": 69, "end": 70, "people": 6},
             {"start": 70, "end": 71, "people": 6},
             {"start": 71, "end": 72, "people": 6}
+        ],
+        "people2": [
+            {"start": 0, "end": 0.3, "people": 10},
+            {"start": 9, "end": 23, "people": 6},
+            {"start": 23, "end": 24.25, "people": 10},
+            {"start": 25.25, "end": 31, "people": 10},
+            {"start": 31, "end": 40.8, "people": 6},
+            {"start": 47, "end": 47.25, "people": 10},
+            {"start": 48.25, "end": 48.9, "people": 10},
+            {"start": 57, "end": 63, "people": 6},
+            {"start": 64, "end": 71, "people": 6},
+            {"start": 71, "end": 72, "people": 10}
+        ],
+        "people3": [
+            {"midnight": 0, "peoplehours": 24},
+            {"midnight": 24, "peoplehours": 26},
+            {"midnight": 48, "peoplehours": 170}
         ]
+    },
+        {
+        "year": "2018",
+        "times": [
+            {"starting_time": 5, "ending_time": 7, "message": "mess"},
+            {"starting_time": 1, "ending_time": 3, "message": "tc"},
+            {"starting_time": 60, "ending_time": 62, "message": "hw"}
+        ],
+        "midnights": [0,24,48],
+        "hours": [
+            {"hour": 11, "temperature": 15},
+            {"hour": 12, "temperature": 20},
+            {"hour": 13, "temperature": 10},
+            {"hour": 14, "temperature": 20},
+            {"hour": 15, "temperature": 30}
+        ],
+        "people": [],
+        "people2": [],
+        "people3": []
     }
 ]

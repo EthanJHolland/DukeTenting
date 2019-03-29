@@ -41,6 +41,8 @@
       fullLengthBackgrounds = false,
       itemHeight = 5,
       itemMargin = 0,
+      blockMargin = 0,
+      blocksPerBoxY = 12,
       navMargin = 60,
       showTimeAxis = false,
       showTempAxis = false,
@@ -50,6 +52,7 @@
       showBorderLine = false,
       showBorderFormat = {width: 1, color: annotationColor},
       midnightBorderFormat = {width: 1, color: annotationColor},
+      showPeopleHourBlocks = false,
       tempMin = 25,
       tempMax = 75,
       showAxisHeaderBackground = false,
@@ -83,6 +86,9 @@
 
       //draw vertical line for every midnight
       appendMidnights();
+
+      //add people hour blocks
+      if(showPeopleHourBlocks) appendPeopleHourBlocks();
 
       //add temperature line graph
       appendTemperatureLine();
@@ -221,11 +227,63 @@
         }
       }
 
+      function appendPeopleHourBlocks2(){
+        const blockHeight = (getBottom() - getTop())/blocksPerBoxY;
+        g.each((d, i) => {
+          d.forEach((datum) => {
+            console.log(datum)
+            datum.people2.forEach((peopleBlock) => {
+              for(var i=0; i<peopleBlock.people; i++){ //block per person going vertically
+                g.insert("rect")
+                .attr("x", xScale(peopleBlock.start) + blockMargin/2)
+                .attr("width", xScale(peopleBlock.end) - xScale(peopleBlock.start) - blockMargin)
+                .attr("y", getBottom() - (i+1)*(blockMargin + blockHeight))
+                .attr("height", blockHeight)
+                .attr("fill", "#123456");
+              }
+              // q=0
+              // g.insert("rect")
+              //   .attr("x", xScale(peopleBlock.start)-q)
+              //   .attr("width", xScale(peopleBlock.end) - xScale(peopleBlock.start) + 2*q)
+              //   .attr("y", getBottom() - blockHeight*peopleBlock.people)
+              //   .attr("height", blockHeight*peopleBlock.people)
+              //   .attr("fill", "#123456");
+            });
+          });
+        });
+      }
+
+      function appendPeopleHourBlocks(){
+        blocksPerBoxX = 12
+        blocksPerBoxY = 24
+        blockMargin = 0.5
+        const blockWidth = (getBottom() - getTop() - (blocksPerBoxX+1)*blockMargin)/blocksPerBoxX;
+        const blockHeight = (getBottom() - getTop() - (blocksPerBoxY+1)*blockMargin)/blocksPerBoxY;
+        console.log("hw")
+        g.each((d, i) => {
+          d.forEach((datum) => {
+            console.log(datum.people3)
+            datum.people3.forEach((peopleBlock) => {
+              for(var i=0; i<Math.floor(peopleBlock.peoplehours); i++){ //block per person going vertically
+                var row = Math.floor(i/12);
+                var col = i%12;
+                g.insert("rect")
+                  .attr("x", xScale(peopleBlock.midnight) + (blockMargin + blockWidth)*col + blockMargin)
+                  .attr("width", blockWidth)
+                  .attr("y", getBottom() - (blockMargin + blockHeight)*(row+1))
+                  .attr("height", blockHeight)
+                  .attr("fill", "#123456")
+                  .attr("fill-opacity","0.7");
+              }
+            });
+          });
+        });
+      }
+
       function appendMidnights(){
         g.each(function (d, i) {
           d.forEach(function (datum) {
-            var midnights = datum.midnights;
-            midnights.forEach(function (midnight) {
+            datum.midnights.forEach(function (midnight) {
               gParent.append("svg:line")
                 .attr("x1", xScale(midnight))
                 .attr("y1", getTop()) //default to chart top if unspecified
@@ -670,6 +728,11 @@
       return timeline;
     };
 
+    timeline.showPeopleHourBlocks = function () {
+      showPeopleHourBlocks = !showPeopleHourBlocks;
+      return timeline;
+    };
+
     timeline.showBorderFormat = function(borderFormat) {
       if (!arguments.length) return showBorderFormat;
       showBorderFormat = borderFormat;
@@ -759,6 +822,7 @@ function makeTimeline(data) {
       .backgroundColor("black")
       .showBorderLine()
       .showTempAxis()
+      .showPeopleHourBlocks()
       .beginning(yearData.midnights[0]) //start at first midnight...
       .ending(yearData.midnights[yearData.midnights.length-1]); //...and continue up to last midnight
     var svg = d3.select("#timeline"+yearData.year).append("svg")
