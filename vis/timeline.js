@@ -227,48 +227,20 @@
         }
       }
 
-      function appendPeopleHourBlocks2(){
-        const blockHeight = (getBottom() - getTop())/blocksPerBoxY;
-        g.each((d, i) => {
-          d.forEach((datum) => {
-            console.log(datum)
-            datum.people2.forEach((peopleBlock) => {
-              for(var i=0; i<peopleBlock.people; i++){ //block per person going vertically
-                g.insert("rect")
-                .attr("x", xScale(peopleBlock.start) + blockMargin/2)
-                .attr("width", xScale(peopleBlock.end) - xScale(peopleBlock.start) - blockMargin)
-                .attr("y", getBottom() - (i+1)*(blockMargin + blockHeight))
-                .attr("height", blockHeight)
-                .attr("fill", "#123456");
-              }
-              // q=0
-              // g.insert("rect")
-              //   .attr("x", xScale(peopleBlock.start)-q)
-              //   .attr("width", xScale(peopleBlock.end) - xScale(peopleBlock.start) + 2*q)
-              //   .attr("y", getBottom() - blockHeight*peopleBlock.people)
-              //   .attr("height", blockHeight*peopleBlock.people)
-              //   .attr("fill", "#123456");
-            });
-          });
-        });
-      }
-
       function appendPeopleHourBlocks(){
         blocksPerBoxX = 12
         blocksPerBoxY = 24
         blockMargin = 0.5
-        const blockWidth = (getBottom() - getTop() - (blocksPerBoxX+1)*blockMargin)/blocksPerBoxX;
+        const blockWidth = (getBottom() - getTop() - (blocksPerBoxX+1)*blockMargin - midnightBorderFormat.width)/blocksPerBoxX;
         const blockHeight = (getBottom() - getTop() - (blocksPerBoxY+1)*blockMargin)/blocksPerBoxY;
-        console.log("hw")
         g.each((d, i) => {
           d.forEach((datum) => {
-            console.log(datum.people3)
-            datum.people3.forEach((peopleBlock) => {
+            datum.people.forEach((peopleBlock) => {
               for(var i=0; i<Math.floor(peopleBlock.peoplehours); i++){ //block per person going vertically
                 var row = Math.floor(i/12);
                 var col = i%12;
                 g.insert("rect")
-                  .attr("x", xScale(peopleBlock.midnight) + (blockMargin + blockWidth)*col + blockMargin)
+                  .attr("x", xScale(peopleBlock.midnight) + midnightBorderFormat.width/2 + (blockMargin + blockWidth)*col + blockMargin)
                   .attr("width", blockWidth)
                   .attr("y", getBottom() - (blockMargin + blockHeight)*(row+1))
                   .attr("height", blockHeight)
