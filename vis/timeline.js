@@ -4,7 +4,7 @@
 
     var hover = function () {},
       mouseover = function(){return tooltip.style("visibility", "visible");},
-      mousemove = function(d){return tooltip.style("top", (event.pageY-10)+"px").style("left",(event.pageX+10)+"px").text(d.message);},
+      mousemove = function(text){return tooltip.style("top", (event.pageY-10)+"px").style("left",(event.pageX+10)+"px").text(text);},
       mouseout = function(){return tooltip.style("visibility", "hidden");},
       click = function () {},
       scroll = function () {},
@@ -42,7 +42,9 @@
       itemHeight = 5,
       itemMargin = 0,
       blockMargin = 0,
-      blocksPerBoxY = 12,
+      blocksPerBoxX = 12
+      blocksPerBoxY = 24
+      blockMargin = 0.5,
       navMargin = 60,
       showTimeAxis = false,
       showTempAxis = false,
@@ -71,6 +73,8 @@
       var maxStack = 1;
       setWidth();
       setHeight();
+      const blockWidth = (getBottom() - getTop() - (blocksPerBoxX+1)*blockMargin - midnightBorderFormat.width)/blocksPerBoxX;
+      const blockHeight = (getBottom() - getTop() - (blocksPerBoxY+1)*blockMargin)/blocksPerBoxY;
 
       // figure out beginning and ending times if they are unspecified
       if (ending === -1 || beginning === -1) setBeginningAndEnding()
@@ -228,11 +232,6 @@
       }
 
       function appendPeopleHourBlocks(){
-        blocksPerBoxX = 12
-        blocksPerBoxY = 24
-        blockMargin = 0.5
-        const blockWidth = (getBottom() - getTop() - (blocksPerBoxX+1)*blockMargin - midnightBorderFormat.width)/blocksPerBoxX;
-        const blockHeight = (getBottom() - getTop() - (blocksPerBoxY+1)*blockMargin)/blocksPerBoxY;
         g.each((d, i) => {
           d.forEach((datum) => {
             datum.people.forEach((peopleBlock) => {
@@ -271,12 +270,25 @@
       function appendTemperatureLine(){
         var valueline = d3.svg.line()
           .x((d) => xScale(d.hour))
-          .y((d) => yTempScale(d.temperature));
+          .y((d) => yTempScale(d.temperature))
+
         g.each((d,i) => {
           d.forEach((datum) => {
             g.append("path")
               .attr("class", "line")
               .attr("d", valueline(datum.hours));
+
+              datum.hours.forEach((hourObj) => {
+                g.append("svg:circle")
+                  .attr("cx", xScale(hourObj.hour))
+                  .attr("cy", yTempScale(hourObj.temperature))
+                  .attr("r", blockWidth/4)
+                  .attr("fill-opacity", 0)
+                  .on("mouseover", mouseover)
+                  .on("mousemove", () => mousemove("hour "+hourObj.hour+": "+hourObj.temperature+"\u00B0"))
+                  .on("mouseout", mouseout)
+                  .on("click", click)
+              });
           });
         });
       }
@@ -340,18 +352,10 @@
                 }
                 return timelineColor(index);
               })
-              .on("mousemove", function (d, i) {
-                mousemove(d, index, datum);
-              })
-              .on("mouseover", function (d, i) {
-                mouseover(d, i, datum);
-              })
-              .on("mouseout", function (d, i) {
-                mouseout(d, i, datum);
-              })
-              .on("click", function (d, i) {
-                click(d, index, datum);
-              })
+              .on("mouseover", mouseover)
+              .on("mousemove", (d) => mousemove(d.message))
+              .on("mouseout", mouseout)
+              .on("click", click)
               .attr("class", function (d, i) {
                 return datum.class ? "timelineSeries_"+datum.class : "timelineSeries_"+index;
               })
