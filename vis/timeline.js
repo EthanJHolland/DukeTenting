@@ -286,7 +286,7 @@
                   .attr("r", blockWidth/4)
                   .attr("fill-opacity", 0)
                   .on("mouseover", mouseover)
-                  .on("mousemove", () => mousemove("hour "+hourObj.hour+": "+hourObj.temperature+"\u00B0"))
+                  .on("mousemove", () => mousemove("hour "+hourObj.hour%24+": "+hourObj.temperature+"\u00B0"))
                   .on("mouseout", mouseout)
                   .on("click", click)
               });
