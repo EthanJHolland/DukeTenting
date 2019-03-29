@@ -86,9 +86,9 @@
             {"hour": 72, "temperature": 30.39}
         ],
         "people": [
-            {"midnight": 0, "peoplehours": 24},
-            {"midnight": 24, "peoplehours": 26},
-            {"midnight": 48, "peoplehours": 170}
+            {"midnight": 0, "peoplehours": 24.7},
+            {"midnight": 24, "peoplehours": 26.5},
+            {"midnight": 48, "peoplehours": 170.1}
         ]
     },
         {
