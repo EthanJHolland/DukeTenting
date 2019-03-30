@@ -98,7 +98,7 @@
       appendTemperatureLine();
 
       //draw tick for each tentcheck
-      appendTentCheckTicks();
+      if (showBorderLine) appendTentCheckTicks();
       
       //add line to form top of boxes
       appendTopBar(showBorderFormat);
@@ -208,27 +208,25 @@
       }
 
       function appendTentCheckTicks(){
-        if (showBorderLine){
-          g.each(function (d, i) {
-            d.forEach(function (datum) {
-              var times = datum.times;
-              times.forEach(function (time) {
-                if(time.starting_time > beginning){
-                  var x = xScale(time.starting_time);
-                  var y = getBottom();
+        g.each(function (d, i) {
+          d.forEach(function (datum) {
+            var times = datum.times;
+            times.forEach(function (time) {
+              if(time.starting_time > beginning){
+                var x = xScale(time.starting_time);
+                var y = getBottom() + itemHeight/2;
 
-                  gParent.append("svg:line")
-                    .attr("x1", x - showBorderFormat.width/2)
-                    .attr("y1", y - itemHeight*2)
-                    .attr("x2", x - showBorderFormat.width/2)
-                    .attr("y2", y + itemHeight)
-                    .style("stroke", showBorderFormat.color)
-                    .style("stroke-width", showBorderFormat.width);
-                }
-              });
+                gParent.append("svg:line")
+                  .attr("x1", x - showBorderFormat.width/2)
+                  .attr("y1", y - itemHeight)
+                  .attr("x2", x - showBorderFormat.width/2)
+                  .attr("y2", y + itemHeight)
+                  .style("stroke", showBorderFormat.color)
+                  .style("stroke-width", showBorderFormat.width);
+              }
             });
           });
-        }
+        });
       }
 
       function appendPeopleHourBlocks(){
@@ -260,7 +258,7 @@
                 .attr("x1", xScale(midnight))
                 .attr("y1", getTop()) //default to chart top if unspecified
                 .attr("x2", xScale(midnight))
-                .attr("y2", getBottom() - (midnight == beginning || midnight == ending ? 0 : itemHeight)) //don't want to cover timeline except at beginning and end
+                .attr("y2", getBottom())
                 .style("stroke", midnightBorderFormat.color)
                 .style("stroke-width", midnightBorderFormat.width);
             });
@@ -323,7 +321,7 @@
             }
   
             //show background of bottom in black so can see time not in tent in white
-            if (backgroundColor) appendBackgroundBar(yAxisMapping, index, g, data, datum);
+            if (backgroundColor) appendBackgroundBar(index, g, data, datum);
   
             g.selectAll("svg").data(data).enter()
               .append(function(d, i) {
@@ -403,9 +401,19 @@
                 .attr("height", itemHeight);
             }
   
+            function appendBackgroundBar(index, g, data, datum) {
+              g.selectAll("svg").data(data).enter()
+                .insert("rect")
+                .attr("x", fullLengthBackgrounds ? 0 : margin.left)
+                .attr("width", fullLengthBackgrounds ? width : (width - margin.right - margin.left))
+                .attr("y", getStackPosition(datum, index) - 0.25) //offset y and height slightly so that background appears a tiny bit above the top and bottom to look like =======
+                .attr("height", itemHeight+0.5)
+                .attr("fill", backgroundColor instanceof Function ? backgroundColor(datum, index) : backgroundColor)
+              ;
+            };
             function getStackPosition(d, i) {
               if (topAndBottom){
-                if(index == 0)return getBottom() - itemHeight; //HANDLE
+                if(index == 0)return getBottom();
                 return getTop();
               }
               if (stacked) {
@@ -534,19 +542,6 @@
         .attr("transform", "translate(" + labelMargin + "," + rowsDown + ")")
         .text(hasLabel ? labelFunction(datum.label) : datum.id)
         .on("click", function (d, i) { click(d, index, datum); });
-    };
-
-    function appendBackgroundBar(yAxisMapping, index, g, data, datum) {
-      var y = topAndBottom ? getBottom() - itemHeight: ((itemHeight + itemMargin) * yAxisMapping[index]) + margin.top; //HANDLE
-      g.selectAll("svg").data(data).enter()
-        .insert("rect")
-        .attr("class", "row-green-bar")
-        .attr("x", fullLengthBackgrounds ? 0 : margin.left)
-        .attr("width", fullLengthBackgrounds ? width : (width - margin.right - margin.left))
-        .attr("y", y-0.25) //offset y and height slightly so that background appears a tiny bit above the top and bottom to look like =======
-        .attr("height", itemHeight+0.5)
-        .attr("fill", backgroundColor instanceof Function ? backgroundColor(datum, index) : backgroundColor)
-      ;
     };
 
     function getTop(){
@@ -797,7 +792,6 @@ function makeTimeline(data) {
       .itemHeight(2)
       .color("white")
       .backgroundColor("black")
-      .showBorderLine()
       .showTempAxis()
       .showPeopleHourBlocks()
       .beginning(yearData.midnights[0]) //start at first midnight...
