@@ -236,14 +236,14 @@
               for(var i=0; i<Math.ceil(peopleBlock.peoplehours); i++){ //block per person going vertically
                 var row = Math.floor(i/12);
                 var col = i%12;
-                var r = i+1 > peopleBlock.peoplehours ? i+1-peopleBlock.peoplehours : 1
+                var r = i+1 > peopleBlock.peoplehours ? peopleBlock.peoplehours-i : 1
                 g.insert("rect")
                   .attr("x", (xScale(peopleBlock.midnight) + midnightBorderFormat.width/2 + (blockMargin + blockWidth)*col + blockMargin))
                   .attr("width", blockWidth * r)
                   .attr("y", getBottom() - (blockMargin + blockHeight)*(row+1))
                   .attr("height", blockHeight)
                   .attr("fill", "#123456")
-                  .attr("fill-opacity","0.7");
+                  .attr("fill-opacity","0.4");
               }
             });
           });

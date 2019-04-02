@@ -86,26 +86,74 @@
             {"hour": 72, "temperature": 30.39}
         ],
         "people": [
-            {"midnight": 0, "peoplehours": 24.7},
-            {"midnight": 24, "peoplehours": 26.5},
-            {"midnight": 48, "peoplehours": 170.1}
+            {"midnight": 0, "peoplehours": 87},
+            {"midnight": 24, "peoplehours": 131.3},
+            {"midnight": 48, "peoplehours": 94.5}
         ]
     },
-        {
-        "year": "2018",
+    {
+        "year": "2017",
         "times": [
-            {"starting_time": 5, "ending_time": 7, "message": "mess"},
-            {"starting_time": 1, "ending_time": 3, "message": "tc"},
-            {"starting_time": 60, "ending_time": 62, "message": "hw"}
+            {"starting_time": 0.3, "ending_time": 9, "message": "Celebratory grace until 9AM!"},
+            {"starting_time": 24.25, "ending_time": 25.25, "message": "Tent check! Grace until 1:15."},
+            {"starting_time": 40.8, "ending_time": 47, "message": "Tent check! Grace until 11PM. Women's hoops tonight versus Louisville  see you there!"},
+            {"starting_time": 47.25, "ending_time": 48, "message": "Tent check! Grace until 12:15am."}
         ],
         "midnights": [0,24,48],
         "hours": [
-            {"hour": 11, "temperature": 15},
-            {"hour": 12, "temperature": 20},
-            {"hour": 13, "temperature": 10},
-            {"hour": 14, "temperature": 20},
-            {"hour": 15, "temperature": 30}
+            {"hour": 0, "temperature": 31.98},
+            {"hour": 1, "temperature": 33.36},
+            {"hour": 2, "temperature": 33.92},
+            {"hour": 3, "temperature": 33.56},
+            {"hour": 4, "temperature": 33.36},
+            {"hour": 5, "temperature": 33.85},
+            {"hour": 6, "temperature": 34.66},
+            {"hour": 7, "temperature": 35},
+            {"hour": 8, "temperature": 35.45},
+            {"hour": 9, "temperature": 38.83},
+            {"hour": 10, "temperature": 42.21},
+            {"hour": 11, "temperature": 46.17},
+            {"hour": 12, "temperature": 51.67},
+            {"hour": 13, "temperature": 54.64},
+            {"hour": 14, "temperature": 55.17},
+            {"hour": 15, "temperature": 55.11},
+            {"hour": 16, "temperature": 54.04},
+            {"hour": 17, "temperature": 53.43},
+            {"hour": 18, "temperature": 51.95},
+            {"hour": 19, "temperature": 51.4},
+            {"hour": 20, "temperature": 51.88},
+            {"hour": 21, "temperature": 52.85},
+            {"hour": 22, "temperature": 53.41},
+            {"hour": 23, "temperature": 54.39},
+            {"hour": 24, "temperature": 55.43},
+            {"hour": 25, "temperature": 56.36},
+            {"hour": 26, "temperature": 55.01},
+            {"hour": 27, "temperature": 54.45},
+            {"hour": 28, "temperature": 54.63},
+            {"hour": 29, "temperature": 54.8},
+            {"hour": 30, "temperature": 54.87},
+            {"hour": 31, "temperature": 54.89},
+            {"hour": 32, "temperature": 55.39},
+            {"hour": 33, "temperature": 56.02},
+            {"hour": 34, "temperature": 56.86},
+            {"hour": 35, "temperature": 57.1},
+            {"hour": 36, "temperature": 54.11},
+            {"hour": 37, "temperature": 51.06},
+            {"hour": 38, "temperature": 51.88},
+            {"hour": 39, "temperature": 51.78},
+            {"hour": 40, "temperature": 49.34},
+            {"hour": 41, "temperature": 45.99},
+            {"hour": 42, "temperature": 41.49},
+            {"hour": 43, "temperature": 38.07},
+            {"hour": 44, "temperature": 35.64},
+            {"hour": 45, "temperature": 33.64},
+            {"hour": 46, "temperature": 31.87},
+            {"hour": 47, "temperature": 30.45},
+            {"hour": 48, "temperature": 29.43}
         ],
-        "people": []
+        "people": [
+            {"midnight": 0, "peoplehours": 22.5},
+            {"midnight": 24, "peoplehours": 12.1}
+        ]
     }
 ]
