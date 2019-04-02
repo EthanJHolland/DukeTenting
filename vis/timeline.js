@@ -102,7 +102,7 @@
       if (showBorderLine) appendTentCheckTicks();
 
       //display date of each box
-      if(showDates) appendDates();
+      if (showDates) appendDates();
       
       //add line to form top of boxes
       appendTopBar(showBorderFormat);
@@ -244,7 +244,7 @@
                 .attr("y", getTop() + textMargin)
                 .attr("text-anchor", "middle")
                 .attr("fill", "#444444")
-                .text("Day "+3+": "+format(new Date(dict.midnight*1000)));
+                .text("Day "+3+": "+format(unixToDate(dict.midnight)));
             });
           });
         });
@@ -292,6 +292,8 @@
           .x((d) => xScale(d.hour))
           .y((d) => yTempScale(d.temperature))
 
+        var format = d3.time.format("%-I %p");
+
         g.each((d,i) => {
           d.forEach((datum) => {
             g.append("path")
@@ -305,7 +307,7 @@
                   .attr("r", blockWidth/4)
                   .attr("fill-opacity", 0)
                   .on("mouseover", mouseover)
-                  .on("mousemove", () => mousemove("hour "+hourObj.hour%24+": "+hourObj.temperature+"\u00B0"))
+                  .on("mousemove", () => mousemove(format(unixToDate(hourObj.hour))+": "+hourObj.temperature+"\u00B0"))
                   .on("mouseout", mouseout)
                   .on("click", click)
               });
@@ -564,6 +566,10 @@
         .text(hasLabel ? labelFunction(datum.label) : datum.id)
         .on("click", function (d, i) { click(d, index, datum); });
     };
+
+    function unixToDate(unixTimestamp){
+      return new Date(unixTimestamp*1000);
+    }
 
     function getTop(){
       return margin.top;
