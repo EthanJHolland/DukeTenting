@@ -22,7 +22,7 @@
         tickValues: null
       },
       tempTickFormat = {
-        tickValues: [25,37.5,50,67.5,75],
+        tickValues: [25,37.5,50,62.5,75],
         majorTickLength: 6,
         minorTickLength: 4
       },
@@ -46,6 +46,7 @@
       blocksPerBoxY = 24
       blockMargin = 0.5,
       navMargin = 60,
+      showDates = false,
       showTimeAxis = false,
       showTempAxis = false,
       showAxisTop = false,
@@ -99,6 +100,9 @@
 
       //draw tick for each tentcheck
       if (showBorderLine) appendTentCheckTicks();
+
+      //display date of each box
+      if(showDates) appendDates();
       
       //add line to form top of boxes
       appendTopBar(showBorderFormat);
@@ -224,6 +228,23 @@
                   .style("stroke", showBorderFormat.color)
                   .style("stroke-width", showBorderFormat.width);
               }
+            });
+          });
+        });
+      }
+
+      function appendDates(){
+        var format = d3.time.format("%a %b %-d");
+        const textMargin = 10;
+        g.each((d, i) => {
+          d.forEach((datum) => {
+            datum.people.forEach((dict) => {
+              g.insert("text")
+                .attr("x", xScale(dict.midnight) + getBoxWidth()/2)
+                .attr("y", getTop() + textMargin)
+                .attr("text-anchor", "middle")
+                .attr("fill", "#444444")
+                .text("Day "+3+": "+format(new Date(dict.midnight*1000)));
             });
           });
         });
@@ -552,6 +573,14 @@
       return height - margin.bottom;
     }
 
+    function getBoxHeight(){
+      return getBottom() - getTop();
+    }
+
+    function getBoxWidth(){
+      return getBoxHeight();
+    }
+
     // SETTINGS
     timeline.margin = function (p) {
       if (!arguments.length) return margin;
@@ -695,6 +724,11 @@
       return timeline;
     }
 
+    timeline.showDates = function () {
+      showDates = !showDates;
+      return timeline;
+    };
+
     timeline.showBorderLine = function () {
       showBorderLine = !showBorderLine;
       return timeline;
@@ -794,6 +828,7 @@ function makeTimeline(data) {
       .backgroundColor("black")
       .showTempAxis()
       .showPeopleHourBlocks()
+      .showDates()
       .beginning(yearData.midnights[0]) //start at first midnight...
       .ending(yearData.midnights[yearData.midnights.length-1]); //...and continue up to last midnight
     var svg = d3.select("#timeline"+yearData.year).append("svg")
@@ -804,6 +839,6 @@ function makeTimeline(data) {
   });
 }
 
-d3.json("/tentchecks.json", function(data) {
+d3.json("./tentchecks.json", function(data) {
   makeTimeline(data);
 });
