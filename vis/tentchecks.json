@@ -1,16 +1,15 @@
 [
     {
         "year": "2017",
-        "times": [
-            {"starting_time": 0.3, "ending_time": 9, "message": "Celebratory grace until 9AM!"},
-            {"starting_time": 24.25, "ending_time": 25.25, "message": "Tent check! Grace until 1:15."},
-            {"starting_time": 40.8, "ending_time": 47, "message": "Tent check! Grace until 11PM. Women's hoops tonight versus Louisville  see you there!"},
-            {"starting_time": 47.25, "ending_time": 48.25, "message": "Tent check! Grace until 12:15am."},
-            {"starting_time": 48.9, "ending_time": 57, "message": "Tent check! Grace until 9am."},
-            {"starting_time": 63, "ending_time": 64, "message": "Tent check! Grace until 4PM. As a reminder, the Georgia Tech walk-up line does not get grace."}
+        "tentchecks": [
+            {"startingtime": 0.3, "endingtime": 9, "message": "Celebratory grace until 9AM!"},
+            {"startingtime": 24.25, "endingtime": 25.25, "message": "Tent check! Grace until 1:15."},
+            {"startingtime": 40.8, "endingtime": 47, "message": "Tent check! Grace until 11PM. Women's hoops tonight versus Louisville  see you there!"},
+            {"startingtime": 47.25, "endingtime": 48.25, "message": "Tent check! Grace until 12:15am."},
+            {"startingtime": 48.9, "endingtime": 57, "message": "Tent check! Grace until 9am."},
+            {"startingtime": 63, "endingtime": 64, "message": "Tent check! Grace until 4PM. As a reminder, the Georgia Tech walk-up line does not get grace."}
         ],
-        "midnights": [0,24,48,72],
-        "hours": [
+        "weather": [
             {"hour": 0, "temperature": 31.98},
             {"hour": 1, "temperature": 33.36},
             {"hour": 2, "temperature": 33.92},
@@ -85,22 +84,21 @@
             {"hour": 71, "temperature": 30.53},
             {"hour": 72, "temperature": 30.39}
         ],
-        "people": [
+        "days": [
             {"midnight": 0, "peoplehours": 87},
             {"midnight": 24, "peoplehours": 131.3},
             {"midnight": 48, "peoplehours": 94.5}
         ]
     },
     {
-        "year": "2017",
-        "times": [
-            {"starting_time": 0.3, "ending_time": 9, "message": "Celebratory grace until 9AM!"},
-            {"starting_time": 24.25, "ending_time": 25.25, "message": "Tent check! Grace until 1:15."},
-            {"starting_time": 40.8, "ending_time": 47, "message": "Tent check! Grace until 11PM. Women's hoops tonight versus Louisville  see you there!"},
-            {"starting_time": 47.25, "ending_time": 48, "message": "Tent check! Grace until 12:15am."}
+        "year": "2018",
+        "tentchecks": [
+            {"startingtime": 0.3, "endingtime": 9, "message": "Celebratory grace until 9AM!"},
+            {"startingtime": 24.25, "endingtime": 25.25, "message": "Tent check! Grace until 1:15."},
+            {"startingtime": 40.8, "endingtime": 47, "message": "Tent check! Grace until 11PM. Women's hoops tonight versus Louisville  see you there!"},
+            {"startingtime": 47.25, "endingtime": 48, "message": "Tent check! Grace until 12:15am."}
         ],
-        "midnights": [0,24,48],
-        "hours": [
+        "weather": [
             {"hour": 0, "temperature": 31.98},
             {"hour": 1, "temperature": 33.36},
             {"hour": 2, "temperature": 33.92},
@@ -151,7 +149,7 @@
             {"hour": 47, "temperature": 30.45},
             {"hour": 48, "temperature": 29.43}
         ],
-        "people": [
+        "days": [
             {"midnight": 0, "peoplehours": 22.5},
             {"midnight": 24, "peoplehours": 12.1}
         ]

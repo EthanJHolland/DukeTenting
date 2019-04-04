@@ -1,6 +1,6 @@
 (function () {
   d3.timeline = function() {
-    var DISPLAY_TYPES = ["circle", "rect"];
+    const DAY_LENGTH = 86400; //length of a day in seconds (for math with unix timestamps)
 
     var hover = function () {},
       mouseover = function(){return tooltip.style("visibility", "visible");},
@@ -30,7 +30,6 @@
       annotationColor = () => "black", //the color of other lines and annotations
       backgroundColor = () => "white", //the color of the background
       colorPropertyName = null,
-      display = "rect",
       beginning = -1,
       ending = -1,
       labelMargin = 0,
@@ -155,11 +154,11 @@
       var gSize = g[0][0].getBoundingClientRect();
 
       function getXPos(d, i) {
-        return margin.left + (d.starting_time - beginning) * scaleFactor;
+        return margin.left + (d.startingtime - beginning) * scaleFactor;
       }
 
       function getXTextPos(d, i) {
-        return margin.left + (d.starting_time - beginning) * scaleFactor + 5;
+        return margin.left + (d.startingtime - beginning) * scaleFactor + 5;
       }
 
       function setHeight() {
@@ -214,10 +213,9 @@
       function appendTentCheckTicks(){
         g.each(function (d, i) {
           d.forEach(function (datum) {
-            var times = datum.times;
-            times.forEach(function (time) {
-              if(time.starting_time > beginning){
-                var x = xScale(time.starting_time);
+            datum.tentchecks.forEach(function (tentcheck) {
+              if(tentcheck.startingtime > beginning){
+                var x = xScale(tentcheck.startingtime);
                 var y = getBottom() + itemHeight/2;
 
                 gParent.append("svg:line")
@@ -236,30 +234,30 @@
       function appendDates(){
         var format = d3.time.format("%a %b %-d");
         const textMargin = 10;
-        g.each((d, i) => {
+        g.each((d) => {
           d.forEach((datum) => {
-            datum.people.forEach((dict) => {
+            datum.days.forEach((day) => {
               g.insert("text")
-                .attr("x", xScale(dict.midnight) + getBoxWidth()/2)
+                .attr("x", xScale(day.midnight) + getBoxWidth()/2)
                 .attr("y", getTop() + textMargin)
                 .attr("text-anchor", "middle")
                 .attr("fill", "#444444")
-                .text("Day "+3+": "+format(unixToDate(dict.midnight)));
+                .text("Day "+3+": "+format(unixToDate(day.midnight)));
             });
           });
         });
       }
 
       function appendPeopleHourBlocks(){
-        g.each((d, i) => {
+        g.each((d) => {
           d.forEach((datum) => {
-            datum.people.forEach((peopleBlock) => {
-              for(var i=0; i<Math.ceil(peopleBlock.peoplehours); i++){ //block per person going vertically
+            datum.days.forEach((day) => {
+              for(var i=0; i<Math.ceil(day.peoplehours); i++){ //block per person going vertically
                 var row = Math.floor(i/12);
                 var col = i%12;
-                var r = i+1 > peopleBlock.peoplehours ? peopleBlock.peoplehours-i : 1
+                var r = i+1 > day.peoplehours ? day.peoplehours-i : 1
                 g.insert("rect")
-                  .attr("x", (xScale(peopleBlock.midnight) + midnightBorderFormat.width/2 + (blockMargin + blockWidth)*col + blockMargin))
+                  .attr("x", (xScale(day.midnight) + midnightBorderFormat.width/2 + (blockMargin + blockWidth)*col + blockMargin))
                   .attr("width", blockWidth * r)
                   .attr("y", getBottom() - (blockMargin + blockHeight)*(row+1))
                   .attr("height", blockHeight)
@@ -272,13 +270,14 @@
       }
 
       function appendMidnights(){
-        g.each(function (d, i) {
+        g.each(function (d) {
           d.forEach(function (datum) {
-            datum.midnights.forEach(function (midnight) {
+            var lastMidnight = datum.days[datum.days.length-1].midnight + DAY_LENGTH;
+            datum.days.concat([{midnight: lastMidnight}]).forEach(function (day) {
               gParent.append("svg:line")
-                .attr("x1", xScale(midnight))
+                .attr("x1", xScale(day.midnight))
                 .attr("y1", getTop()) //default to chart top if unspecified
-                .attr("x2", xScale(midnight))
+                .attr("x2", xScale(day.midnight))
                 .attr("y2", getBottom())
                 .style("stroke", midnightBorderFormat.color)
                 .style("stroke-width", midnightBorderFormat.width);
@@ -294,13 +293,13 @@
 
         var format = d3.time.format("%-I %p");
 
-        g.each((d,i) => {
+        g.each((d) => {
           d.forEach((datum) => {
             g.append("path")
               .attr("class", "line")
-              .attr("d", valueline(datum.hours));
+              .attr("d", valueline(datum.weather));
 
-              datum.hours.forEach((hourObj) => {
+              datum.weather.forEach((hourObj) => {
                 g.append("svg:circle")
                   .attr("cx", xScale(hourObj.hour))
                   .attr("cy", yTempScale(hourObj.temperature))
@@ -319,23 +318,25 @@
         minTime = -1,
         maxTime = -1;
   
-        g.each(function (d, i) {
-          d.forEach(function (datum, index) {
-            datum.times.forEach(function (time, i) {
-              if(beginning === -1 && (time.starting_time < minTime || minTime === -1)) minTime = time.starting_time;
-              if(ending === -1 && time.ending_time > maxTime) maxTime = time.ending_time;
+        g.each(function (d) {
+          d.forEach(function (datum) {
+            datum.days.forEach(function (day) {
+              if(beginning === -1 && (day.midnight < minTime || minTime === -1)) minTime = day.midnight;
+              if(ending === -1 && day.midnight > maxTime) maxTime = day.midnight;
             });
           });
         });
-        if (ending === -1) ending = maxTime;
+        if (ending === -1) ending = maxTime + DAY_LENGTH; //account for last day
         if (beginning === -1) beginning = minTime;
+
+        console.log(beginning,ending);
       }
 
       function appendTimeline(){
         g.each(function(d, i) {
           chartData = d;
           d.forEach( function(datum, index){
-            var data = datum.times;
+            var data = datum.tentchecks;
             var hasLabel = (typeof(datum.label) != "undefined");
   
             // issue warning about using id per data set. Ids should be individual to data elements
@@ -347,13 +348,11 @@
             if (backgroundColor) appendBackgroundBar(index, g, data, datum);
   
             g.selectAll("svg").data(data).enter()
-              .append(function(d, i) {
-                  return document.createElementNS(d3.ns.prefix.svg, "display" in d? d.display:display);
-              })
+              .append("rect")
               .attr("x", getXPos)
               .attr("y", getStackPosition)
               .attr("width", function (d, i) {
-                return (d.ending_time - d.starting_time) * scaleFactor;
+                return (d.endingtime - d.startingtime) * scaleFactor;
               })
               .attr("cy", function(d, i) {
                   return getStackPosition(d, i);
@@ -624,12 +623,6 @@
       return timeline;
     };
 
-    timeline.display = function (displayType) {
-      if (!arguments.length || (DISPLAY_TYPES.indexOf(displayType) == -1)) return display;
-      display = displayType;
-      return timeline;
-    };
-
     timeline.labelFormat = function(f) {
       if (!arguments.length) return labelFunction;
       labelFunction = f;
@@ -823,7 +816,7 @@ const margins = {left: 40, right: 40, top: 15, bottom: 48};
 
 function makeTimeline(data) {
   data.forEach((yearData) => {
-    numDays = yearData.midnights.length - 1;
+    numDays = yearData.days.length;
     width = numDays * (height - margins.top - margins.bottom) + margins.left + margins.right;
 
     var chart = d3.timeline()
@@ -835,8 +828,8 @@ function makeTimeline(data) {
       .showTempAxis()
       .showPeopleHourBlocks()
       .showDates()
-      .beginning(yearData.midnights[0]) //start at first midnight...
-      .ending(yearData.midnights[yearData.midnights.length-1]); //...and continue up to last midnight
+      // .beginning(yearData.days[0].midnight) //start at first midnight...
+      // .ending(yearData.days[yearData.days.length-1]); //...and continue up to last midnight
     var svg = d3.select("#timeline"+yearData.year).append("svg")
       .attr("width", width)
       .attr("height",height)
