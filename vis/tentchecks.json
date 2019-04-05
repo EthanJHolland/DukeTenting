@@ -1,6 +1,6 @@
-[
+{
+    "2017":
     {
-        "year": "2017",
         "tentchecks": [
             {"startingtime": 0.3, "endingtime": 9, "message": "Celebratory grace until 9AM!"},
             {"startingtime": 24.25, "endingtime": 25.25, "message": "Tent check! Grace until 1:15."},
@@ -90,8 +90,7 @@
             {"midnight": 48, "peoplehours": 94.5}
         ]
     },
-    {
-        "year": "2018",
+    "2018":{
         "tentchecks": [
             {"startingtime": 0.3, "endingtime": 9, "message": "Celebratory grace until 9AM!"},
             {"startingtime": 24.25, "endingtime": 25.25, "message": "Tent check! Grace until 1:15."},
@@ -154,4 +153,4 @@
             {"midnight": 24, "peoplehours": 12.1}
         ]
     }
-]
+}

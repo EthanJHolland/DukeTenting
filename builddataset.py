@@ -67,5 +67,31 @@ def getWeatherData(dt):
     
     return hours
 
+def weatherToJSON(out = {year:{} for year in YEARS}):
+    #add/overwrite keys
+    for k in out:
+        out[k]['weather'] = []
+    for obj in readData('weather.csv'):
+        out[sToYear(obj['DateTime'])]['weather'].append({
+            'hour': dtToUnix(sToDT(obj['DateTime'])),
+            'temperature': float(obj['Temperature'])
+        })
+    return out
+
+def tentchecksToJSON(out = {year:{} for year in YEARS}):
+    #add/overwrite keys
+    for k in out:
+        out[k]['tentchecks'] = []
+    for tc in readData('textalerts.csv'):
+        out[sToYear(tc['Start'])]['tentchecks'].append({
+            'startingtime': dtToUnix(sToDT(tc['Start'])),
+            'endingtime': dtToUnix(sToDT(tc['End'])),
+            'message': tc['Message']
+        })
+
+    return out
+
 if __name__=='__main__':
-    main()
+    # main()
+    with open('temp.json','w') as f:
+        f.write(json.dumps(weatherToJSON(tentchecksToJSON()),indent=1))

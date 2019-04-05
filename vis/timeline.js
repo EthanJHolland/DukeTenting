@@ -815,7 +815,8 @@ const height = 200;
 const margins = {left: 40, right: 40, top: 15, bottom: 48};
 
 function makeTimeline(data) {
-  data.forEach((yearData) => {
+  for(var year in data){
+    var yearData = data[year];
     numDays = yearData.days.length;
     width = numDays * (height - margins.top - margins.bottom) + margins.left + margins.right;
 
@@ -830,12 +831,12 @@ function makeTimeline(data) {
       .showDates()
       // .beginning(yearData.days[0].midnight) //start at first midnight...
       // .ending(yearData.days[yearData.days.length-1]); //...and continue up to last midnight
-    var svg = d3.select("#timeline"+yearData.year).append("svg")
+    d3.select("#timeline"+year).append("svg")
       .attr("width", width)
       .attr("height",height)
       .style("font", "10px times")
       .datum([yearData]).call(chart);
-  });
+  }
 }
 
 d3.json("./tentchecks.json", function(data) {

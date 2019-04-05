@@ -8,6 +8,9 @@ def sToDT(s):
 def sToT(s):
     return datetime.strptime(s, '%I:%M %p').time()
 
+def sToYear(s):
+    return str(sToDT(s).year)
+
 def dtToS(dt):
     return dt.strftime('%m/%d/%Y %H:%M')
 
