@@ -1,71 +1,117 @@
-import json
 import requests
 from datetime import datetime, timedelta, date
 
 from utils import *
 from tentingstate import TentingState
 
+DAY_LENGTH = 60*60*24 #length of a day in seconds
 YEARS = ['2015', '2016', '2017', '2018', '2019']
-KEY = 'c909476300cb0941ad8617163cb84a5a' #darksky key
-LAT = 35.997500 #kville latitude
-LONG = -78.940947 #kville longitude
-WEATHER_KEYS = {'summary':'Weather','temperature':'Temperature','apparentTemperature':'ApparentTemperature','precipIntensity':'Precipitation','precipType':'PrecipitationType'} #map from api key to desired key
-NO_PRECIP = 'none' #string for no precipitation
-PRECIP_TYPES = ['rain','snow','sleet',NO_PRECIP] #possible values for precipType
+PERIODS=['black','blue','white']
+DOW = ['mon','tues','wed','thurs','fri','sat','sun'] #python uses 0 for monday
+PPL = {
+    'black_day': 2,
+    'black_night': 10,
+    'blue_day': 1,
+    'blue_night': 6,
+    'white_day': 1,
+    'white_night': 2
+}
 
 def main():
-    data = []
-    ts = TentingState()
-    for year in YEARS:
-        ts.setYear(year)
-        currDay = startDay = dtToMidnight(ts.getTentingStart()) #start at midnight of day of start of black tenting
+    verify_grace() #ensure datasets are valid
+    data = {year:{} for year in YEARS} #init
+    data = weatherToJSON(tentchecksToJSON(datesToJSON(data))) #collect other data
 
-        while currDay < ts.getTentingEnd():
-            #do daily tasks
-            weatherData = getWeatherData(currDay)
-            dayNum = (currDay - startDay).days
+    for year,yearData in data.items():
+        yearData['days'] = []
+        tcEvents = {tc['startingtime'] for tc in yearData['tentchecks']}.union({tc['endingtime'] for tc in yearData['tentchecks']})
+        periodEvents = {yearData['periods'][key] for key in ['black_start','blue_start','white_start','white_end']}
+        nightEvents = {night for night in yearData['nights']}
 
-            #do hourly tasks
-            for hour in weatherData:
-                currData = getTimeData(year, hour, dayNum, currDay) #get basic date/time data
-                currData.update(weatherData[hour]) #add in weather information
-                currData.update(ts.update(hour)) #add in tenting specific data
+        currDay = unixToMidnight(yearData['periods']['black_start']) #start at midnight of day of start of black tenting
+        endTime = unixToMidnight(yearData['periods']['white_end']) + DAY_LENGTH
 
-                data.append(currData) #write data
+        #init
+        people = 0 #start with no one in tent
+        isNight = None
+        inTent = False #don't start in tent
+        periodIndex = -1 #index in PERIODs array
+        done = False #is tenting 
 
-            currDay += timedelta(days = 1) #go to next day
-        
-        print('finished',year) #write out
-    
-    writeData('data.csv', data)
-
-def getTimeData(year, hour, dayNum, currDay):
-    return {
-            'Year': year,
-            'DateTime': dtToS(hour),
-            'DayNum': dayNum,
-            'HourNum': (hour-currDay).seconds//3600,
-        }
+        while currDay < endTime:
+            curr = currDay
+            peopleSec = 0
+            while curr < currDay + DAY_LENGTH:
+                if inTent and not done:
+                    peopleSec += people
+                    #TODO: later, add temp and percip here
                 
-def getWeatherData(dt):
-    url = 'https://api.darksky.net/forecast/{}/{},{},{}?exclude=currently,flags,daily'.format(KEY,LAT,LONG,dtToUnix(dt))
-    res = json.loads(requests.get(url).text)
+                #hackily handle the first day/night value since 11 am is always day
+                if isNight is None and curr - currDay > DAY_LENGTH*11/24:
+                    isNight = False
+                
+                #handle events
+                if curr in tcEvents:
+                    inTent = not inTent #toggle in tent
+                if curr in periodEvents:
+                    periodIndex += 1
+                    done = periodIndex >= len(PERIODS) #done with tenting
+                    people = calcPeople(periodIndex, isNight)
+                if curr in nightEvents and isNight is not None:
+                    isNight = not isNight #toggle night
+                    people = calcPeople(periodIndex, isNight)
 
-    #clean result
-    hours = {}
-    for hour in res['hourly']['data']:
-        #no precipType key if no precipitation so set to default value
-        if 'precipProbability' not in hour or not hour['precipProbability']:
-            hour['precipIntensity'] = 0
-        if not hour['precipIntensity']:
-            hour['precipType'] = NO_PRECIP
+                curr+=1
+
+            yearData['days'].append({
+                'midnight': currDay,
+                'peoplehours': peopleSec/60/60
+            })
+            currDay += DAY_LENGTH #go to next day
         
-        hourDT = unixToDT(hour['time'])
-
-        #remove unwanted keys
-        hours[hourDT] = {WEATHER_KEYS[k]:v for k,v in hour.items() if k in WEATHER_KEYS}
+        # print('finished',year) #write out
     
-    return hours
+    # only keep needed keys
+    keep = ['tentchecks', 'weather', 'days']
+    data = {yr: {k:v for k,v in data[yr].items() if k in keep} for yr in data}
+    writeJSON('data.json', data)
+
+def calcPeople(periodIndex, isNight):
+    if periodIndex < 0 or periodIndex >= len(PERIODS): #before or after tenting
+        return 0
+    return PPL["{}_{}".format(PERIODS[periodIndex], 'night' if isNight else 'day')]
+
+def verify_grace():
+    dts=[]
+    with open('textalerts.csv') as f:
+        for row in DictReader(f):
+            dts.append(datetime.strptime(row['Start'], '%m/%d/%Y %H:%M'))
+            dts.append(datetime.strptime(row['End'], '%m/%d/%Y %H:%M'))
+    
+    #check that sequence of starts and ends is sequential
+    for i in range(1,len(dts)):
+        assert dts[i]>dts[i-1], 'invalid sequence of grace times'
+
+def datesToJSON(out = {year:{} for year in YEARS}):
+    periodEventKeys = [per+'_start' for per in PERIODS] + ['white_end']
+    nightEventKeys = [day+'_start' for day in DOW] + [day+'_end' for day in DOW]
+
+    for k in out:
+        out[k]['dates'] = {}
+    for row in readData('dates.csv'):
+        out[row['year']]['periods'] = {k:dtToUnix(sToDT(v)) for k,v in row.items() if k in periodEventKeys}
+
+        #calculate night starts and ends
+        nights = []
+        nightOffsets = [float(v) for k,v in row.items() if k in nightEventKeys]
+        currWeek = dtToWeekStart(sToDT(row['black_start'])) - timedelta(weeks=2)
+        endWeek = dtToWeekStart(sToDT(row['white_end'])) + timedelta(weeks=2)
+        while currWeek <= endWeek:
+            nights += [dtToUnix(currWeek + timedelta(hours=no)) for no in nightOffsets]
+            currWeek += timedelta(weeks=1)
+        out[row['year']]['nights'] = nights
+    
+    return out
 
 def weatherToJSON(out = {year:{} for year in YEARS}):
     #add/overwrite keys
@@ -92,6 +138,4 @@ def tentchecksToJSON(out = {year:{} for year in YEARS}):
     return out
 
 if __name__=='__main__':
-    # main()
-    with open('temp.json','w') as f:
-        f.write(json.dumps(weatherToJSON(tentchecksToJSON()),indent=1))
+    main()

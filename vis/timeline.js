@@ -236,13 +236,13 @@
         const textMargin = 10;
         g.each((d) => {
           d.forEach((datum) => {
-            datum.days.forEach((day) => {
+            datum.days.forEach((day,index) => {
               g.insert("text")
                 .attr("x", xScale(day.midnight) + getBoxWidth()/2)
                 .attr("y", getTop() + textMargin)
                 .attr("text-anchor", "middle")
                 .attr("fill", "#444444")
-                .text("Day "+3+": "+format(unixToDate(day.midnight)));
+                .text("Day "+(index+1)+": "+format(unixToDate(day.midnight)));
             });
           });
         });
@@ -812,7 +812,7 @@
 })();
 
 const height = 200;
-const margins = {left: 40, right: 40, top: 15, bottom: 48};
+const margins = {left: 40, right: 40, top: 15, bottom: 45};
 
 function makeTimeline(data) {
   for(var year in data){
@@ -829,8 +829,8 @@ function makeTimeline(data) {
       .showTempAxis()
       .showPeopleHourBlocks()
       .showDates()
-      // .beginning(yearData.days[0].midnight) //start at first midnight...
-      // .ending(yearData.days[yearData.days.length-1]); //...and continue up to last midnight
+      .beginning(yearData.days[0].midnight) //start at first midnight...
+      .ending(yearData.days[yearData.days.length-1].midnight); //...and continue up to last midnight
     d3.select("#timeline"+year).append("svg")
       .attr("width", width)
       .attr("height",height)
