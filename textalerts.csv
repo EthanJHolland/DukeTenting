@@ -64,7 +64,7 @@ Start,End,Message
 2/9/2015 15:48,2/9/2015 22:00,[MBB @ Florida St]; Grace is given with no check until 10PM due to lightning and the Florida State game. Let's go Duke! Stay dry!
 2/11/2015 0:59,2/11/2015 2:00,Tent check! Grace until 2AM. 
 2/11/2015 2:29,2/11/2015 3:30,Tent check! Grace until 3:30AM. 
-2/11/2015 17:54,2/11/2015 23:00,"Tent check! Grace until next January, with the exception of P-checks. Stick around for free pancakes in K-Ville at 6!"
+2/11/2015 17:54,2/12/2015 0:00,"Tent check! Grace until next January, with the exception of P-checks. Stick around for free pancakes in K-Ville at 6!; [end of tenting]"
 1/17/2016 0:00,1/17/2016 23:00,[prior to start of tenting]
 1/18/2016 10:14,1/18/2016 11:15,Tent Check! Grace until 11:15. No grace for Syracuse Walk-Up Line.
 1/18/2016 16:40,1/19/2016 11:00,[MBB vs. Syracuse]; Grace until 2 hours after the game (around 11) BUT keep an eye out for another text after the game in case we extend grace due to the weather.; Grace extended until 10 AM due to weather.; Grace extended to 11 AM due to weather.
@@ -178,7 +178,7 @@ Start,End,Message
 3/1/2016 6:30,3/1/2016 7:30,Tent check! Grace until 7:30AM. 
 3/1/2016 12:30,3/1/2016 13:30,Tent check! Grace until 1:30 PM. No grace for Wake WUL 
 3/1/2016 17:27,3/2/2016 0:00,[MBB vs. Wake Forest]; No check! Grace until 12 AM! Go Duke! 
-3/2/2016 0:41,3/2/2016 12:00,"Tent Check! Congrats, tenting is over! See you at P-Checks!!!!"
+3/2/2016 0:41,3/3/2016 0:00,"Tent Check! Congrats, tenting is over! See you at P-Checks!!!!; [end of tenting]"
 1/11/2017 0:00,1/11/2017 23:00,[prior to start of tenting]
 1/15/2017 14:00,1/15/2017 18:00,[WBB @ NC State]; Tent Check Completed!! Grace until 6 pm for the women's basketball game.
 1/15/2017 23:15,1/16/2017 0:15,Tent Check! Grace until 12:15
@@ -245,7 +245,7 @@ Start,End,Message
 2/2/2017 2:43,2/2/2017 3:45,Tent check! Grace until 3:45 AM 
 2/2/2017 6:45,2/2/2017 7:45,Tent Check! Grace until 7:45 a.m. 
 2/2/2017 8:00,2/2/2017 9:00,Tent Check! Grace until 9 am
-2/2/2017 11:23,2/2/2017 12:23,LAST TENT CHECK! Grace til P-Checks!!!
+2/2/2017 11:23,2/3/2017 0:00,LAST TENT CHECK! Grace til P-Checks!!!; [end of tenting]
 1/12/2018 0:00,1/12/2018 23:00,[prior to start of tenting]
 1/13/2018 0:00,1/13/2018 1:00,Tent check! Grace until 1AM. 
 1/13/2018 4:11,1/13/2018 5:15,Tent check! Grace until 5:15AM. 
@@ -360,7 +360,7 @@ Start,End,Message
 2/21/2018 14:15,2/21/2018 15:15,"A perfect tent check! Good job everyone, grace until 3:15!"
 2/21/2018 18:44,2/22/2018 1:00,[MBB vs. Louisville]; Grace for tenters until 1AM for the Louisville game!
 2/22/2018 1:34,2/22/2018 2:45,Tent check!! Grace until 2:45AM for tents. 
-2/22/2018 9:47,2/22/2018 12:00,Tent check! Grace until 2019 you made it! :) 
+2/22/2018 9:47,2/23/2018 0:00,Tent check! Grace until 2019 you made it! :); [end of tenting]
 1/12/2019 0:00,1/12/2019 23:00,[prior to start of tenting]
 1/12/2019 23:42,1/13/2019 0:45,Tent check! Grace until 12:45; Tent check! Grace until 12:45 am.; Tent check at 11:45! Grace until 12:45 am.
 1/13/2019 2:47,1/13/2019 3:47,Tent check! Grace until 3:47 am. 
@@ -504,4 +504,4 @@ Start,End,Message
 2/13/2019 16:33,2/13/2019 17:45,Tent check! Happy Hump Day! Grace until 5:45 PM
 2/14/2019 3:07,2/14/2019 4:15,Tent check! Grace until 4:15 AM!
 2/14/2019 6:15,2/14/2019 7:15,Happy last night check! Happy Valentine's Day! Grace until 7:15 AM <3 
-2/14/2019 11:40,2/14/2019 12:40,Last tent check! Congrats and see you at pchecks :)
+2/14/2019 11:40,2/15/2019 0:00,Last tent check! Congrats and see you at pchecks :); [end of tenting]

@@ -328,8 +328,8 @@
    },
    {
     "startingtime": 1423695240,
-    "endingtime": 1423713600,
-    "message": "Tent check! Grace until next January, with the exception of P-checks. Stick around for free pancakes in K-Ville at 6!"
+    "endingtime": 1423717200,
+    "message": "Tent check! Grace until next January, with the exception of P-checks. Stick around for free pancakes in K-Ville at 6!; [end of tenting]"
    }
   ],
   "weather": [
@@ -3698,6 +3698,7 @@
     "temperature": 36.12
    }
   ],
+  "year": "2015",
   "days": [
    {
     "midnight": 1420693200,
@@ -3839,7 +3840,8 @@
     "midnight": 1423630800,
     "peoplehours": 20.83388888888889
    }
-  ]
+  ],
+  "startday": 8
  },
  "2016": {
   "tentchecks": [
@@ -4410,8 +4412,8 @@
    },
    {
     "startingtime": 1456897260,
-    "endingtime": 1456938000,
-    "message": "Tent Check! Congrats, tenting is over! See you at P-Checks!!!!"
+    "endingtime": 1456981200,
+    "message": "Tent Check! Congrats, tenting is over! See you at P-Checks!!!!; [end of tenting]"
    }
   ],
   "weather": [
@@ -8836,6 +8838,7 @@
     "temperature": 35.51
    }
   ],
+  "year": "2016",
   "days": [
    {
     "midnight": 1453006800,
@@ -9021,7 +9024,8 @@
     "midnight": 1456894800,
     "peoplehours": 1.3666666666666667
    }
-  ]
+  ],
+  "startday": 17
  },
  "2017": {
   "tentchecks": [
@@ -9357,8 +9361,8 @@
    },
    {
     "startingtime": 1486052580,
-    "endingtime": 1486056180,
-    "message": "LAST TENT CHECK! Grace til P-Checks!!!"
+    "endingtime": 1486098000,
+    "message": "LAST TENT CHECK! Grace til P-Checks!!!; [end of tenting]"
    }
   ],
   "weather": [
@@ -11575,6 +11579,7 @@
     "temperature": 49.32
    }
   ],
+  "year": "2017",
   "days": [
    {
     "midnight": 1484110800,
@@ -11666,9 +11671,10 @@
    },
    {
     "midnight": 1486011600,
-    "peoplehours": 36.05
+    "peoplehours": 24.433611111111112
    }
-  ]
+  ],
+  "startday": 11
  },
  "2018": {
   "tentchecks": [
@@ -12244,8 +12250,8 @@
    },
    {
     "startingtime": 1519310820,
-    "endingtime": 1519318800,
-    "message": "Tent check! Grace until 2019 you made it! :) "
+    "endingtime": 1519362000,
+    "message": "Tent check! Grace until 2019 you made it! :); [end of tenting]"
    }
   ],
   "weather": [
@@ -16286,6 +16292,7 @@
     "temperature": 60.74
    }
   ],
+  "year": "2018",
   "days": [
    {
     "midnight": 1515733200,
@@ -16455,7 +16462,8 @@
     "midnight": 1519275600,
     "peoplehours": 11.85
    }
-  ]
+  ],
+  "startday": 12
  },
  "2019": {
   "tentchecks": [
@@ -17176,8 +17184,8 @@
    },
    {
     "startingtime": 1550162400,
-    "endingtime": 1550166000,
-    "message": "Last tent check! Congrats and see you at pchecks :)"
+    "endingtime": 1550206800,
+    "message": "Last tent check! Congrats and see you at pchecks :); [end of tenting]"
    }
   ],
   "weather": [
@@ -20442,6 +20450,7 @@
     "temperature": 52.98
    }
   ],
+  "year": "2019",
   "days": [
    {
     "midnight": 1547269200,
@@ -20579,6 +20588,7 @@
     "midnight": 1550120400,
     "peoplehours": 13.650277777777777
    }
-  ]
+  ],
+  "startday": 12
  }
 }

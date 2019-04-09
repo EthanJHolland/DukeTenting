@@ -2,7 +2,6 @@ import requests
 from datetime import datetime, timedelta, date
 
 from utils import *
-from tentingstate import TentingState
 
 DAY_LENGTH = 60*60*24 #length of a day in seconds
 YEARS = ['2015', '2016', '2017', '2018', '2019']
@@ -23,18 +22,21 @@ def main():
     data = weatherToJSON(tentchecksToJSON(datesToJSON(data))) #collect other data
 
     for year,yearData in data.items():
+        yearData['year'] = year #redundantly store year
         yearData['days'] = []
+        
         tcEvents = {tc['startingtime'] for tc in yearData['tentchecks']}.union({tc['endingtime'] for tc in yearData['tentchecks']})
         periodEvents = {yearData['periods'][key] for key in ['black_start','blue_start','white_start','white_end']}
         nightEvents = {night for night in yearData['nights']}
 
         currDay = unixToMidnight(yearData['periods']['black_start']) #start at midnight of day of start of black tenting
         endTime = unixToMidnight(yearData['periods']['white_end']) + DAY_LENGTH
+        yearData['startday'] = unixToDT(currDay).day #the day of the month that tenting starts
 
         #init
         people = 0 #start with no one in tent
         isNight = None
-        inTent = False #don't start in tent
+        inTent = True #don't start in tent
         periodIndex = -1 #index in PERIODs array
         done = False #is tenting 
 
@@ -72,9 +74,9 @@ def main():
         # print('finished',year) #write out
     
     # only keep needed keys
-    keep = ['tentchecks', 'weather', 'days']
+    keep = ['tentchecks', 'weather', 'days', 'startday', 'year']
     data = {yr: {k:v for k,v in data[yr].items() if k in keep} for yr in data}
-    writeJSON('data.json', data)
+    writeJSON('./vis/data.json', data)
 
 def calcPeople(periodIndex, isNight):
     if periodIndex < 0 or periodIndex >= len(PERIODS): #before or after tenting

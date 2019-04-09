@@ -1,6 +1,6 @@
 (function () {
   d3.timeline = function() {
-    const DAY_LENGTH = 86400; //length of a day in seconds (for math with unix timestamps)
+    // const DAY_LENGTH = 86400; //length of a day in seconds (for math with unix timestamps)
 
     var hover = function () {},
       mouseover = function(){return tooltip.style("visibility", "visible");},
@@ -102,6 +102,9 @@
 
       //display date of each box
       if (showDates) appendDates();
+
+      //show year
+      appendYear();
       
       //add line to form top of boxes
       appendTopBar(showBorderFormat);
@@ -236,14 +239,34 @@
         const textMargin = 10;
         g.each((d) => {
           d.forEach((datum) => {
-            datum.days.forEach((day,index) => {
-              g.insert("text")
-                .attr("x", xScale(day.midnight) + getBoxWidth()/2)
-                .attr("y", getTop() + textMargin)
-                .attr("text-anchor", "middle")
-                .attr("fill", "#444444")
-                .text("Day "+(index+1)+": "+format(unixToDate(day.midnight)));
+            datum.days.forEach((day, index) => {
+              if(index != datum.days.length-1){ //don't want text for last fake day added to show last box
+                g.insert("text")
+                  .attr("x", xScale(day.midnight) + getBoxWidth()/2)
+                  .attr("y", getTop() + textMargin)
+                  .attr("text-anchor", "middle")
+                  .attr("fill", "#444444")
+                  .text("Day "+(index+1)+": "+format(unixToDate(day.midnight)));
+              }
             });
+          });
+        });
+      }
+      
+      function appendYear() {
+        var x = 0;
+        var y = (getTop() + getBottom())/2
+
+        g.each((d) => {
+          d.forEach((datum) => {
+            g.insert("text")
+              .attr("x", x)
+              .attr("y", y)
+              .attr("transform", "rotate(-90,"+x+","+y+")")
+              .attr("text-anchor", "middle") //since rotated, vertical alignment
+              .attr("alignment-baseline", "hanging") //since rotated, horizontal alignment
+              .attr("font-size", 65)
+              .text(datum.year);
           });
         });
       }
@@ -273,12 +296,12 @@
         g.each(function (d) {
           d.forEach(function (datum) {
             var lastMidnight = datum.days[datum.days.length-1].midnight + DAY_LENGTH;
-            datum.days.concat([{midnight: lastMidnight}]).forEach(function (day) {
+            datum.days.concat([{midnight: lastMidnight}]).forEach(function (day, index) {
               gParent.append("svg:line")
                 .attr("x1", xScale(day.midnight))
                 .attr("y1", getTop()) //default to chart top if unspecified
                 .attr("x2", xScale(day.midnight))
-                .attr("y2", getBottom())
+                .attr("y2", getBottom() + (index == 0 || index == datum.days.length-1 ? itemHeight+0.25: 0)) //need first and last vertical line to extend through timeline
                 .style("stroke", midnightBorderFormat.color)
                 .style("stroke-width", midnightBorderFormat.width);
             });
@@ -457,22 +480,27 @@
     var appendTempAxis = function(g, yTempScale) {
       var isMajorTick = (i) => i%2 == 0;
 
-      var yTempAxis = d3.svg.axis()
-        .scale(yTempScale)
-        .orient("left")
-        .tickValues(tempTickFormat.tickValues)
-        .tickSize(tempTickFormat.majorTickLength)
-        .tickFormat((d, i) => isMajorTick(i) ? d+"\u00B0" : "")
+      var makeTempAxis = (orient) => {
+        yTempAxis = d3.svg.axis()
+          .scale(yTempScale)
+          .tickValues(tempTickFormat.tickValues)
+          .tickSize(tempTickFormat.majorTickLength)
+          .tickFormat((d, i) => isMajorTick(i) ? d+"\u00B0" : "")
+          .orient(orient)
+      
+        var axisGroup = g.append("g")
+          .attr("class", "axis")
+          .attr("transform", "translate(" + (orient == "left"? margin.left : width - margin.right) + "," +  0 + ")")
+          .call(yTempAxis)
+          .call(g => g.select(".domain").remove()) //remove axis line, leaving only ticks, labels
+          
+        axisGroup.selectAll("g")
+          .filter((d, i) => !isMajorTick(i)) //select minor ticks
+          .attr("stroke-dasharray", tempTickFormat.minorTickLength+","+tempTickFormat.majorTickLength) //make shorter by strategically setting to truncated dashed line
+      }
 
-      var axisGroup = g.append("g")
-        .attr("class", "axis")
-        .attr("transform", "translate(" + margin.left + "," +  0 + ")")
-        .call(yTempAxis)
-        .call(g => g.select(".domain").remove()) //remove axis line, leaving only ticks, labels
-        
-      axisGroup.selectAll("g")
-        .filter((d, i) => !isMajorTick(i)) //select minor ticks
-        .attr("stroke-dasharray", tempTickFormat.minorTickLength+","+tempTickFormat.majorTickLength) //make shorter by strategically setting to truncated dashed line
+      makeTempAxis("left")
+      makeTempAxis("right")
     }
 
     var appendTimeAxis = function(g, xAxis, yPosition) {
@@ -811,14 +839,19 @@
   };
 })();
 
+const FIRST_DAY = 8; //day when all timelines start (1/8)
+const DAY_LENGTH = 60*60*24;
 const height = 200;
-const margins = {left: 40, right: 40, top: 15, bottom: 45};
+const margins = {left: 100, right: 40, top: 17, bottom: 43};
 
 function makeTimeline(data) {
   for(var year in data){
     var yearData = data[year];
-    numDays = yearData.days.length;
-    width = numDays * (height - margins.top - margins.bottom) + margins.left + margins.right;
+    var lastMidnight = yearData.days[yearData.days.length-1].midnight + DAY_LENGTH
+    yearData.days.push({midnight: lastMidnight, peoplehours: 0}); //need to add an extra day with no peoplehours to make last box
+    numDays = yearData.days.length - 1;
+    dayHeight = height - margins.top - margins.bottom
+    width = numDays * dayHeight + margins.left + margins.right;
 
     var chart = d3.timeline()
       .margin(margins)
@@ -830,15 +863,17 @@ function makeTimeline(data) {
       .showPeopleHourBlocks()
       .showDates()
       .beginning(yearData.days[0].midnight) //start at first midnight...
-      .ending(yearData.days[yearData.days.length-1].midnight); //...and continue up to last midnight
+      .ending(lastMidnight); //...and continue up to last midnight
+
     d3.select("#timeline"+year).append("svg")
       .attr("width", width)
       .attr("height",height)
       .style("font", "10px times")
+      .attr("transform", "translate("+ (yearData.startday - FIRST_DAY)*dayHeight +","+ 0 +")")
       .datum([yearData]).call(chart);
   }
 }
 
-d3.json("./tentchecks.json", function(data) {
+d3.json("./data.json", function(data) {
   makeTimeline(data);
 });
