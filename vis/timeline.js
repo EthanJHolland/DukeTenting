@@ -295,8 +295,7 @@
       function appendMidnights(){
         g.each(function (d) {
           d.forEach(function (datum) {
-            var lastMidnight = datum.days[datum.days.length-1].midnight + DAY_LENGTH;
-            datum.days.concat([{midnight: lastMidnight}]).forEach(function (day, index) {
+            datum.days.forEach(function (day, index) {
               gParent.append("svg:line")
                 .attr("x1", xScale(day.midnight))
                 .attr("y1", getTop()) //default to chart top if unspecified
@@ -841,20 +840,26 @@
 
 const FIRST_DAY = 8; //day when all timelines start (1/8)
 const DAY_LENGTH = 60*60*24;
-const height = 200;
-const margins = {left: 100, right: 40, top: 17, bottom: 43};
+const ROW_HEIGHT = 200;
+const ROW_MARGINS = {left: 100, right: 40, top: 17, bottom: 43};
 
 function makeTimeline(data) {
+  var svg = d3.select("#vis").append("svg")
+    .attr("width", 7840)
+    .attr("height", (ROW_HEIGHT + ROW_MARGINS.top + ROW_MARGINS.bottom)*Object.keys(data).length)
+    .style("font", "10px times")
+
+  var rownum = 0;
   for(var year in data){
     var yearData = data[year];
     var lastMidnight = yearData.days[yearData.days.length-1].midnight + DAY_LENGTH
     yearData.days.push({midnight: lastMidnight, peoplehours: 0}); //need to add an extra day with no peoplehours to make last box
     numDays = yearData.days.length - 1;
-    dayHeight = height - margins.top - margins.bottom
-    width = numDays * dayHeight + margins.left + margins.right;
+    dayHeight = ROW_HEIGHT - ROW_MARGINS.top - ROW_MARGINS.bottom
+    width = numDays * dayHeight + ROW_MARGINS.left + ROW_MARGINS.right;
 
     var chart = d3.timeline()
-      .margin(margins)
+      .margin(ROW_MARGINS)
       .topAndBottom()
       .itemHeight(2)
       .color("white")
@@ -865,12 +870,13 @@ function makeTimeline(data) {
       .beginning(yearData.days[0].midnight) //start at first midnight...
       .ending(lastMidnight); //...and continue up to last midnight
 
-    d3.select("#timeline"+year).append("svg")
+    svg.append("g")
       .attr("width", width)
-      .attr("height",height)
-      .style("font", "10px times")
-      .attr("transform", "translate("+ (yearData.startday - FIRST_DAY)*dayHeight +","+ 0 +")")
+      .attr("height",ROW_HEIGHT)
+      .attr("transform", "translate("+ (yearData.startday - FIRST_DAY)*dayHeight +","+ (ROW_HEIGHT + ROW_MARGINS.top + ROW_MARGINS.bottom)*rownum +")")
       .datum([yearData]).call(chart);
+    
+    rownum++;
   }
 }
 
