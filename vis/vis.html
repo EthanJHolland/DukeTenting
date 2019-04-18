@@ -3,16 +3,25 @@
 
 <head>
   <meta charset="UTF-8">
-  <title>d3.timeline</title>
+  <title>Tenting Vis</title>
   
   <link rel="stylesheet" href="style.css">
   
 </head>
 
 <body>
+<!-- <h1>The "cost" of tenting</h1>
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas eget massa ac nisi semper suscipit. Phasellus a feugiat quam. Ut at dolor facilisis nulla fermentum cursus. In hac habitasse platea dictumst. Curabitur iaculis efficitur lectus ac viverra. Suspendisse potenti. Aenean porta massa ut nunc gravida pretium. Sed at justo ac lectus venenatis faucibus. Nullam quis maximus dolor, ut interdum neque. Nunc et porta tellus. Nam id elementum nisi. Curabitur ultrices ut lorem ut mollis.
+</br>
+Integer volutpat est lorem, id blandit odio venenatis vel. Curabitur in nunc a lacus posuere elementum sit amet vel nulla. Fusce turpis risus, ultrices non velit non, efficitur luctus purus. Aliquam laoreet placerat ante ut fermentum. Vestibulum luctus libero ornare, congue ipsum id, accumsan mi. Mauris mollis consectetur fringilla. Fusce semper libero tortor, eget lobortis massa tincidunt eu. Donec dolor mauris, sollicitudin sed nisl eu, tincidunt faucibus justo. Sed interdum, tortor ac iaculis sodales, sapien justo pretium metus, quis sodales ante lectus et nunc. Integer et purus nec massa facilisis laoreet.
+</br>
+Praesent ornare malesuada massa vel fringilla. Nulla diam sapien, tempor at augue eget, maximus facilisis dui. Mauris consectetur eros lacus, id consequat est venenatis sit amet. In neque justo, congue vel nulla non, placerat vulputate purus. Nam vel sollicitudin quam. Duis massa magna, dictum sed commodo eu, mollis ut mauris. Maecenas feugiat vel orci vel bibendum. Aenean id turpis at massa luctus euismod. Donec finibus turpis eu sem rhoncus, vel pellentesque ex pharetra. Duis faucibus lacus sem, eget tempus ex pulvinar et. Nunc maximus leo quis augue tincidunt, eu dignissim turpis ornare. Curabitur lacus nisl, eleifend a ligula semper, ornare hendrerit risus. Quisque efficitur consectetur pellentesque. Integer facilisis feugiat magna, eu tincidunt orci placerat tincidunt. Vivamus nec ipsum vel dui sodales mattis quis nec odio.
+
+
+<div class='tableauPlaceholder' id='viz1554991401180' style='position: relative'><noscript><a href='#'><img alt=' ' src='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;Pr&#47;ProjectOutline2Digital&#47;dashdigital&#47;1_rss.png' style='border: none' /></a></noscript><object class='tableauViz'  style='display:none;'><param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' /> <param name='embed_code_version' value='3' /> <param name='site_root' value='' /><param name='name' value='ProjectOutline2Digital&#47;dashdigital' /><param name='tabs' value='no' /><param name='toolbar' value='yes' /><param name='static_image' value='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;Pr&#47;ProjectOutline2Digital&#47;dashdigital&#47;1.png' /> <param name='animate_transition' value='yes' /><param name='display_static_image' value='yes' /><param name='display_spinner' value='yes' /><param name='display_overlay' value='yes' /><param name='display_count' value='yes' /><param name='filter' value='publish=yes' /></object></div>                <script type='text/javascript'>                    var divElement = document.getElementById('viz1554991401180');                    var vizElement = divElement.getElementsByTagName('object')[0];                    vizElement.style.width='1000px';vizElement.style.height='827px';                    var scriptElement = document.createElement('script');                    scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';                    vizElement.parentNode.insertBefore(scriptElement, vizElement);                </script> -->
+
 
 <div id="vis"></div>
-
 <script src='https://d3js.org/d3.v3.min.js'></script>
 <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
 <script  src="timeline.js"></script>
@@ -29,7 +38,7 @@ var tooltip = d3.select("body")
   .style("border-radius", "5px")
   .style("padding", "5px")
   .style("position", "absolute")
-  .style("z-index", "10")
+  .style("z-index", "10") //show towards the front
   .style("visibility", "hidden")
 
 </script>

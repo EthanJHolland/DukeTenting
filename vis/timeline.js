@@ -1,7 +1,5 @@
 (function () {
   d3.timeline = function() {
-    // const DAY_LENGTH = 86400; //length of a day in seconds (for math with unix timestamps)
-
     var hover = function () {},
       mouseover = function(){return tooltip.style("visibility", "visible");},
       mousemove = function(text){return tooltip.style("top", (event.pageY-10)+"px").style("left",(event.pageX+10)+"px").text(text);},
@@ -129,21 +127,6 @@
       }
       if (showTimeAxis) { appendTimeAxis(g, xAxis, timeAxisYPosition); }
       if (timeAxisTick) { appendTimeAxisTick(g, xAxis, maxStack); }
-
-      if (width > gParentSize.width) {
-        var move = function() {
-          var x = Math.min(0, Math.max(gParentSize.width - width, d3.event.translate[0]));
-          zoom.translate([x, 0]);
-          g.attr("transform", "translate(" + x + ",0)");
-          scroll(x*scaleFactor, xScale);
-        };
-
-        var zoom = d3.behavior.zoom().x(xScale).on("zoom", move);
-
-        gParent
-          .attr("class", "scrollable")
-          .call(zoom);
-      }
 
       if (rotateTicks) {
         g.selectAll(".tick text")
@@ -841,16 +824,23 @@
 const FIRST_DAY = 8; //day when all timelines start (1/8)
 const DAY_LENGTH = 60*60*24;
 const ROW_HEIGHT = 200;
-const ROW_MARGINS = {left: 100, right: 40, top: 17, bottom: 43};
+const ROW_MARGINS = {left: 100, right: 40, top: 5, bottom: 25};
 
 function makeTimeline(data) {
+  console.log("loading...")
   var svg = d3.select("#vis").append("svg")
-    .attr("width", 7840)
+    .attr("width", 10000)
     .attr("height", (ROW_HEIGHT + ROW_MARGINS.top + ROW_MARGINS.bottom)*Object.keys(data).length)
+    .attr("transform", "translate(50,50)")
     .style("font", "10px times")
+    // .attr("transform","scale(0.5)")
+    // .call(d3.behavior.zoom().on("zoom", function () {
+    //   svg.attr("transform", "translate(" + d3.event.translate + ")" + " scale(" + d3.event.scale + ")")
+    // }));
 
   var rownum = 0;
-  for(var year in data){
+  ["2019","2018","2017","2016","2015"].forEach((year) => {
+    console.log(year)
     var yearData = data[year];
     var lastMidnight = yearData.days[yearData.days.length-1].midnight + DAY_LENGTH
     yearData.days.push({midnight: lastMidnight, peoplehours: 0}); //need to add an extra day with no peoplehours to make last box
@@ -861,7 +851,7 @@ function makeTimeline(data) {
     var chart = d3.timeline()
       .margin(ROW_MARGINS)
       .topAndBottom()
-      .itemHeight(2)
+      .itemHeight(4)
       .color("white")
       .backgroundColor("black")
       .showTempAxis()
@@ -877,7 +867,7 @@ function makeTimeline(data) {
       .datum([yearData]).call(chart);
     
     rownum++;
-  }
+  });
 }
 
 d3.json("./data.json", function(data) {
