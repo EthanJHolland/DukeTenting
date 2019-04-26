@@ -254,22 +254,55 @@
         });
       }
 
+      function insertBlock(midnight, row, col, r, offset, color){
+        g.insert("rect")
+          .attr("x", (xScale(midnight) + midnightBorderFormat.width/2 + (blockMargin + blockWidth)*col + blockMargin + blockWidth * offset))
+          .attr("width", blockWidth * r)
+          .attr("y", getBottom() - (blockMargin + blockHeight)*(row+1))
+          .attr("height", blockHeight)
+          .attr("fill", color)
+          .attr("fill-opacity", color == "#f4a460" ? "0.4": "0.3");
+      }
+
       function appendPeopleHourBlocks(){
         g.each((d) => {
           d.forEach((datum) => {
             datum.days.forEach((day) => {
-              for(var i=0; i<Math.ceil(day.peoplehours); i++){ //block per person going vertically
-                var row = Math.floor(i/12);
-                var col = i%12;
-                var r = i+1 > day.peoplehours ? day.peoplehours-i : 1
-                g.insert("rect")
-                  .attr("x", (xScale(day.midnight) + midnightBorderFormat.width/2 + (blockMargin + blockWidth)*col + blockMargin))
-                  .attr("width", blockWidth * r)
-                  .attr("y", getBottom() - (blockMargin + blockHeight)*(row+1))
-                  .attr("height", blockHeight)
-                  .attr("fill", "#123456")
-                  .attr("fill-opacity","0.4");
-              }
+              // day.blackhours = 24;
+              // day.bluehours = day.whitehours = 12;
+
+              var protruding = 0; //fraction of bloack left over by last period
+              var counter = 0; //index of next block to add
+              [{hours: day.blackhours, color: '#000000'}, 
+                {hours: day.bluehours, color: '#123456'},
+                {hours: day.whitehours, color: '#f4a460'}
+              ].forEach((per) => {
+                //determine if last period left a partial block
+                if(protruding > 0 && per.hours > 0){
+                  //finish partial block
+                  counter--;
+                  var row = Math.floor(counter/12);
+                  var col = counter%12;
+                  var r = Math.min(1 - protruding, per.hours);
+                  var offset = protruding;
+                  insertBlock(day.midnight, row, col, r, offset, per.color);
+
+                  //update vars
+                  protruding = 0;
+                  per.hours -= r;
+                  counter++; //note decremented earlier in if
+                }
+
+                for(var i = 0; i < Math.ceil(per.hours); i++){
+                  var row = Math.floor(counter/12);
+                  var col = counter%12;
+                  var r = i+1 > per.hours ? per.hours - i: 1
+                  insertBlock(day.midnight, row, col, r, 0, per.color);
+                  counter++;
+                }
+
+                protruding = per.hours % 1;
+              });
             });
           });
         });
@@ -831,15 +864,10 @@ function makeTimeline(data) {
   var svg = d3.select("#vis").append("svg")
     .attr("width", 10000)
     .attr("height", (ROW_HEIGHT + ROW_MARGINS.top + ROW_MARGINS.bottom)*Object.keys(data).length)
-    .attr("transform", "translate(50,50)")
     .style("font", "10px times")
-    // .attr("transform","scale(0.5)")
-    // .call(d3.behavior.zoom().on("zoom", function () {
-    //   svg.attr("transform", "translate(" + d3.event.translate + ")" + " scale(" + d3.event.scale + ")")
-    // }));
 
   var rownum = 0;
-  ["2019","2018","2017","2016","2015"].forEach((year) => {
+  ["2019","2018","2017","2016","2015"].reverse().forEach((year) => {
     console.log(year)
     var yearData = data[year];
     var lastMidnight = yearData.days[yearData.days.length-1].midnight + DAY_LENGTH
@@ -863,7 +891,7 @@ function makeTimeline(data) {
     svg.append("g")
       .attr("width", width)
       .attr("height",ROW_HEIGHT)
-      .attr("transform", "translate("+ (yearData.startday - FIRST_DAY)*dayHeight +","+ (ROW_HEIGHT + ROW_MARGINS.top + ROW_MARGINS.bottom)*rownum +")")
+      .attr("transform", "translate("+ ((yearData.startday - FIRST_DAY)*dayHeight + 100) +","+ (ROW_HEIGHT + ROW_MARGINS.top + ROW_MARGINS.bottom)*rownum +")")
       .datum([yearData]).call(chart);
     
     rownum++;

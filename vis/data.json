@@ -3702,143 +3702,248 @@
   "days": [
    {
     "midnight": 1420693200,
-    "peoplehours": 1.9994444444444446
+    "peoplehours": 1.9994444444444446,
+    "blackhours": 1.9994444444444446,
+    "bluehours": 0.0,
+    "whitehours": 0.0
    },
    {
     "midnight": 1420779600,
-    "peoplehours": 84.0
+    "peoplehours": 84.0,
+    "blackhours": 84.0,
+    "bluehours": 0.0,
+    "whitehours": 0.0
    },
    {
     "midnight": 1420866000,
-    "peoplehours": 84.0
+    "peoplehours": 84.0,
+    "blackhours": 84.0,
+    "bluehours": 0.0,
+    "whitehours": 0.0
    },
    {
     "midnight": 1420952400,
-    "peoplehours": 115.99777777777778
+    "peoplehours": 115.99777777777778,
+    "blackhours": 115.99777777777778,
+    "bluehours": 0.0,
+    "whitehours": 0.0
    },
    {
     "midnight": 1421038800,
-    "peoplehours": 117.46944444444445
+    "peoplehours": 117.46944444444445,
+    "blackhours": 117.46944444444445,
+    "bluehours": 0.0,
+    "whitehours": 0.0
    },
    {
     "midnight": 1421125200,
-    "peoplehours": 74.0
+    "peoplehours": 74.0,
+    "blackhours": 74.0,
+    "bluehours": 0.0,
+    "whitehours": 0.0
    },
    {
     "midnight": 1421211600,
-    "peoplehours": 27.999444444444446
+    "peoplehours": 27.999444444444446,
+    "blackhours": 27.999444444444446,
+    "bluehours": 0.0,
+    "whitehours": 0.0
    },
    {
     "midnight": 1421298000,
-    "peoplehours": 72.0
+    "peoplehours": 72.0,
+    "blackhours": 72.0,
+    "bluehours": 0.0,
+    "whitehours": 0.0
    },
    {
     "midnight": 1421384400,
-    "peoplehours": 70.96666666666667
+    "peoplehours": 70.96666666666667,
+    "blackhours": 70.96666666666667,
+    "bluehours": 0.0,
+    "whitehours": 0.0
    },
    {
     "midnight": 1421470800,
-    "peoplehours": 60.333333333333336
+    "peoplehours": 60.333333333333336,
+    "blackhours": 60.333333333333336,
+    "bluehours": 0.0,
+    "whitehours": 0.0
    },
    {
     "midnight": 1421557200,
-    "peoplehours": 66.16555555555556
+    "peoplehours": 66.16555555555556,
+    "blackhours": 60.16722222222222,
+    "bluehours": 5.998333333333333,
+    "whitehours": 0.0
    },
    {
     "midnight": 1421643600,
-    "peoplehours": 64.00166666666667
+    "peoplehours": 64.00166666666667,
+    "blackhours": 0.0,
+    "bluehours": 64.00166666666667,
+    "whitehours": 0.0
    },
    {
     "midnight": 1421730000,
-    "peoplehours": 56.498333333333335
+    "peoplehours": 56.498333333333335,
+    "blackhours": 0.0,
+    "bluehours": 56.498333333333335,
+    "whitehours": 0.0
    },
    {
     "midnight": 1421816400,
-    "peoplehours": 47.00138888888889
+    "peoplehours": 47.00138888888889,
+    "blackhours": 0.0,
+    "bluehours": 47.00138888888889,
+    "whitehours": 0.0
    },
    {
     "midnight": 1421902800,
-    "peoplehours": 39.333333333333336
+    "peoplehours": 39.333333333333336,
+    "blackhours": 0.0,
+    "bluehours": 39.333333333333336,
+    "whitehours": 0.0
    },
    {
     "midnight": 1421989200,
-    "peoplehours": 44.416666666666664
+    "peoplehours": 44.416666666666664,
+    "blackhours": 0.0,
+    "bluehours": 44.416666666666664,
+    "whitehours": 0.0
    },
    {
     "midnight": 1422075600,
-    "peoplehours": 39.25
+    "peoplehours": 39.25,
+    "blackhours": 0.0,
+    "bluehours": 39.25,
+    "whitehours": 0.0
    },
    {
     "midnight": 1422162000,
-    "peoplehours": 58.74861111111111
+    "peoplehours": 58.74861111111111,
+    "blackhours": 0.0,
+    "bluehours": 58.74861111111111,
+    "whitehours": 0.0
    },
    {
     "midnight": 1422248400,
-    "peoplehours": 79.0
+    "peoplehours": 79.0,
+    "blackhours": 0.0,
+    "bluehours": 79.0,
+    "whitehours": 0.0
    },
    {
     "midnight": 1422334800,
-    "peoplehours": 55.20166666666667
+    "peoplehours": 55.20166666666667,
+    "blackhours": 0.0,
+    "bluehours": 55.20166666666667,
+    "whitehours": 0.0
    },
    {
     "midnight": 1422421200,
-    "peoplehours": 48.98305555555555
+    "peoplehours": 48.98305555555555,
+    "blackhours": 0.0,
+    "bluehours": 48.98305555555555,
+    "whitehours": 0.0
    },
    {
     "midnight": 1422507600,
-    "peoplehours": 10.083333333333334
+    "peoplehours": 10.083333333333334,
+    "blackhours": 0.0,
+    "bluehours": 10.083333333333334,
+    "whitehours": 0.0
    },
    {
     "midnight": 1422594000,
-    "peoplehours": 40.4
+    "peoplehours": 40.4,
+    "blackhours": 0.0,
+    "bluehours": 40.4,
+    "whitehours": 0.0
    },
    {
     "midnight": 1422680400,
-    "peoplehours": 9.916666666666666
+    "peoplehours": 9.916666666666666,
+    "blackhours": 0.0,
+    "bluehours": 9.916666666666666,
+    "whitehours": 0.0
    },
    {
     "midnight": 1422766800,
-    "peoplehours": 21.533055555555556
+    "peoplehours": 21.533055555555556,
+    "blackhours": 0.0,
+    "bluehours": 19.53361111111111,
+    "whitehours": 1.9994444444444446
    },
    {
     "midnight": 1422853200,
-    "peoplehours": 25.31722222222222
+    "peoplehours": 25.31722222222222,
+    "blackhours": 0.0,
+    "bluehours": 0.0,
+    "whitehours": 25.31722222222222
    },
    {
     "midnight": 1422939600,
-    "peoplehours": 16.366111111111113
+    "peoplehours": 16.366111111111113,
+    "blackhours": 0.0,
+    "bluehours": 0.0,
+    "whitehours": 16.366111111111113
    },
    {
     "midnight": 1423026000,
-    "peoplehours": 21.000555555555554
+    "peoplehours": 21.000555555555554,
+    "blackhours": 0.0,
+    "bluehours": 0.0,
+    "whitehours": 21.000555555555554
    },
    {
     "midnight": 1423112400,
-    "peoplehours": 23.49972222222222
+    "peoplehours": 23.49972222222222,
+    "blackhours": 0.0,
+    "bluehours": 0.0,
+    "whitehours": 23.49972222222222
    },
    {
     "midnight": 1423198800,
-    "peoplehours": 12.7
+    "peoplehours": 12.7,
+    "blackhours": 0.0,
+    "bluehours": 0.0,
+    "whitehours": 12.7
    },
    {
     "midnight": 1423285200,
-    "peoplehours": 20.0
+    "peoplehours": 20.0,
+    "blackhours": 0.0,
+    "bluehours": 0.0,
+    "whitehours": 20.0
    },
    {
     "midnight": 1423371600,
-    "peoplehours": 22.866944444444446
+    "peoplehours": 22.866944444444446,
+    "blackhours": 0.0,
+    "bluehours": 0.0,
+    "whitehours": 22.866944444444446
    },
    {
     "midnight": 1423458000,
-    "peoplehours": 26.299444444444443
+    "peoplehours": 26.299444444444443,
+    "blackhours": 0.0,
+    "bluehours": 0.0,
+    "whitehours": 26.299444444444443
    },
    {
     "midnight": 1423544400,
-    "peoplehours": 32.0
+    "peoplehours": 32.0,
+    "blackhours": 0.0,
+    "bluehours": 0.0,
+    "whitehours": 32.0
    },
    {
     "midnight": 1423630800,
-    "peoplehours": 20.83388888888889
+    "peoplehours": 20.83388888888889,
+    "blackhours": 0.0,
+    "bluehours": 0.0,
+    "whitehours": 20.83388888888889
    }
   ],
   "startday": 8
@@ -8842,187 +8947,325 @@
   "days": [
    {
     "midnight": 1453006800,
-    "peoplehours": 9.997222222222224
+    "peoplehours": 9.997222222222224,
+    "blackhours": 9.997222222222224,
+    "bluehours": 0.0,
+    "whitehours": 0.0
    },
    {
     "midnight": 1453093200,
-    "peoplehours": 111.30277777777778
+    "peoplehours": 111.30277777777778,
+    "blackhours": 111.30277777777778,
+    "bluehours": 0.0,
+    "whitehours": 0.0
    },
    {
     "midnight": 1453179600,
-    "peoplehours": 11.866666666666667
+    "peoplehours": 11.866666666666667,
+    "blackhours": 11.866666666666667,
+    "bluehours": 0.0,
+    "whitehours": 0.0
    },
    {
     "midnight": 1453266000,
-    "peoplehours": 20.733333333333334
+    "peoplehours": 20.733333333333334,
+    "blackhours": 20.733333333333334,
+    "bluehours": 0.0,
+    "whitehours": 0.0
    },
    {
     "midnight": 1453352400,
-    "peoplehours": 65.59944444444444
+    "peoplehours": 65.59944444444444,
+    "blackhours": 65.59944444444444,
+    "bluehours": 0.0,
+    "whitehours": 0.0
    },
    {
     "midnight": 1453438800,
-    "peoplehours": 3.2005555555555554
+    "peoplehours": 3.2005555555555554,
+    "blackhours": 3.2005555555555554,
+    "bluehours": 0.0,
+    "whitehours": 0.0
    },
    {
     "midnight": 1453525200,
-    "peoplehours": 0.0
+    "peoplehours": 0.0,
+    "blackhours": 0.0,
+    "bluehours": 0.0,
+    "whitehours": 0.0
    },
    {
     "midnight": 1453611600,
-    "peoplehours": 6.033333333333333
+    "peoplehours": 6.033333333333333,
+    "blackhours": 6.033333333333333,
+    "bluehours": 0.0,
+    "whitehours": 0.0
    },
    {
     "midnight": 1453698000,
-    "peoplehours": 35.76388888888889
+    "peoplehours": 35.76388888888889,
+    "blackhours": 35.76388888888889,
+    "bluehours": 0.0,
+    "whitehours": 0.0
    },
    {
     "midnight": 1453784400,
-    "peoplehours": 88.76944444444445
+    "peoplehours": 88.76944444444445,
+    "blackhours": 88.76944444444445,
+    "bluehours": 0.0,
+    "whitehours": 0.0
    },
    {
     "midnight": 1453870800,
-    "peoplehours": 84.83277777777776
+    "peoplehours": 84.83277777777776,
+    "blackhours": 84.83277777777776,
+    "bluehours": 0.0,
+    "whitehours": 0.0
    },
    {
     "midnight": 1453957200,
-    "peoplehours": 64.0
+    "peoplehours": 64.0,
+    "blackhours": 64.0,
+    "bluehours": 0.0,
+    "whitehours": 0.0
    },
    {
     "midnight": 1454043600,
-    "peoplehours": 79.9
+    "peoplehours": 79.9,
+    "blackhours": 79.9,
+    "bluehours": 0.0,
+    "whitehours": 0.0
    },
    {
     "midnight": 1454130000,
-    "peoplehours": 74.0
+    "peoplehours": 74.0,
+    "blackhours": 74.0,
+    "bluehours": 0.0,
+    "whitehours": 0.0
    },
    {
     "midnight": 1454216400,
-    "peoplehours": 96.50055555555556
+    "peoplehours": 96.50055555555556,
+    "blackhours": 92.00055555555556,
+    "bluehours": 4.5,
+    "whitehours": 0.0
    },
    {
     "midnight": 1454302800,
-    "peoplehours": 62.498333333333335
+    "peoplehours": 62.498333333333335,
+    "blackhours": 0.0,
+    "bluehours": 62.498333333333335,
+    "whitehours": 0.0
    },
    {
     "midnight": 1454389200,
-    "peoplehours": 46.70166666666667
+    "peoplehours": 46.70166666666667,
+    "blackhours": 0.0,
+    "bluehours": 46.70166666666667,
+    "whitehours": 0.0
    },
    {
     "midnight": 1454475600,
-    "peoplehours": 7.416388888888889
+    "peoplehours": 7.416388888888889,
+    "blackhours": 0.0,
+    "bluehours": 7.416388888888889,
+    "whitehours": 0.0
    },
    {
     "midnight": 1454562000,
-    "peoplehours": 31.25
+    "peoplehours": 31.25,
+    "blackhours": 0.0,
+    "bluehours": 31.25,
+    "whitehours": 0.0
    },
    {
     "midnight": 1454648400,
-    "peoplehours": 40.2
+    "peoplehours": 40.2,
+    "blackhours": 0.0,
+    "bluehours": 40.2,
+    "whitehours": 0.0
    },
    {
     "midnight": 1454734800,
-    "peoplehours": 34.31666666666667
+    "peoplehours": 34.31666666666667,
+    "blackhours": 0.0,
+    "bluehours": 34.31666666666667,
+    "whitehours": 0.0
    },
    {
     "midnight": 1454821200,
-    "peoplehours": 46.49861111111111
+    "peoplehours": 46.49861111111111,
+    "blackhours": 0.0,
+    "bluehours": 46.49861111111111,
+    "whitehours": 0.0
    },
    {
     "midnight": 1454907600,
-    "peoplehours": 58.833333333333336
+    "peoplehours": 58.833333333333336,
+    "blackhours": 0.0,
+    "bluehours": 58.833333333333336,
+    "whitehours": 0.0
    },
    {
     "midnight": 1454994000,
-    "peoplehours": 53.60166666666667
+    "peoplehours": 53.60166666666667,
+    "blackhours": 0.0,
+    "bluehours": 53.60166666666667,
+    "whitehours": 0.0
    },
    {
     "midnight": 1455080400,
-    "peoplehours": 48.59972222222222
+    "peoplehours": 48.59972222222222,
+    "blackhours": 0.0,
+    "bluehours": 48.59972222222222,
+    "whitehours": 0.0
    },
    {
     "midnight": 1455166800,
-    "peoplehours": 7.116666666666666
+    "peoplehours": 7.116666666666666,
+    "blackhours": 0.0,
+    "bluehours": 7.116666666666666,
+    "whitehours": 0.0
    },
    {
     "midnight": 1455253200,
-    "peoplehours": 38.95027777777778
+    "peoplehours": 38.95027777777778,
+    "blackhours": 0.0,
+    "bluehours": 38.95027777777778,
+    "whitehours": 0.0
    },
    {
     "midnight": 1455339600,
-    "peoplehours": 0.0
+    "peoplehours": 0.0,
+    "blackhours": 0.0,
+    "bluehours": 0.0,
+    "whitehours": 0.0
    },
    {
     "midnight": 1455426000,
-    "peoplehours": 0.0
+    "peoplehours": 0.0,
+    "blackhours": 0.0,
+    "bluehours": 0.0,
+    "whitehours": 0.0
    },
    {
     "midnight": 1455512400,
-    "peoplehours": 8.0
+    "peoplehours": 8.0,
+    "blackhours": 0.0,
+    "bluehours": 8.0,
+    "whitehours": 0.0
    },
    {
     "midnight": 1455598800,
-    "peoplehours": 53.931666666666665
+    "peoplehours": 53.931666666666665,
+    "blackhours": 0.0,
+    "bluehours": 53.931666666666665,
+    "whitehours": 0.0
    },
    {
     "midnight": 1455685200,
-    "peoplehours": 46.86833333333333
+    "peoplehours": 46.86833333333333,
+    "blackhours": 0.0,
+    "bluehours": 46.86833333333333,
+    "whitehours": 0.0
    },
    {
     "midnight": 1455771600,
-    "peoplehours": 9.366388888888888
+    "peoplehours": 9.366388888888888,
+    "blackhours": 0.0,
+    "bluehours": 0.0,
+    "whitehours": 9.366388888888888
    },
    {
     "midnight": 1455858000,
-    "peoplehours": 25.5
+    "peoplehours": 25.5,
+    "blackhours": 0.0,
+    "bluehours": 0.0,
+    "whitehours": 25.5
    },
    {
     "midnight": 1455944400,
-    "peoplehours": 21.5
+    "peoplehours": 21.5,
+    "blackhours": 0.0,
+    "bluehours": 0.0,
+    "whitehours": 21.5
    },
    {
     "midnight": 1456030800,
-    "peoplehours": 22.166944444444443
+    "peoplehours": 22.166944444444443,
+    "blackhours": 0.0,
+    "bluehours": 0.0,
+    "whitehours": 22.166944444444443
    },
    {
     "midnight": 1456117200,
-    "peoplehours": 29.299444444444443
+    "peoplehours": 29.299444444444443,
+    "blackhours": 0.0,
+    "bluehours": 0.0,
+    "whitehours": 29.299444444444443
    },
    {
     "midnight": 1456203600,
-    "peoplehours": 29.433888888888887
+    "peoplehours": 29.433888888888887,
+    "blackhours": 0.0,
+    "bluehours": 0.0,
+    "whitehours": 29.433888888888887
    },
    {
     "midnight": 1456290000,
-    "peoplehours": 16.66638888888889
+    "peoplehours": 16.66638888888889,
+    "blackhours": 0.0,
+    "bluehours": 0.0,
+    "whitehours": 16.66638888888889
    },
    {
     "midnight": 1456376400,
-    "peoplehours": 19.5
+    "peoplehours": 19.5,
+    "blackhours": 0.0,
+    "bluehours": 0.0,
+    "whitehours": 19.5
    },
    {
     "midnight": 1456462800,
-    "peoplehours": 25.5
+    "peoplehours": 25.5,
+    "blackhours": 0.0,
+    "bluehours": 0.0,
+    "whitehours": 25.5
    },
    {
     "midnight": 1456549200,
-    "peoplehours": 26.5
+    "peoplehours": 26.5,
+    "blackhours": 0.0,
+    "bluehours": 0.0,
+    "whitehours": 26.5
    },
    {
     "midnight": 1456635600,
-    "peoplehours": 23.26638888888889
+    "peoplehours": 23.26638888888889,
+    "blackhours": 0.0,
+    "bluehours": 0.0,
+    "whitehours": 23.26638888888889
    },
    {
     "midnight": 1456722000,
-    "peoplehours": 26.86722222222222
+    "peoplehours": 26.86722222222222,
+    "blackhours": 0.0,
+    "bluehours": 0.0,
+    "whitehours": 26.86722222222222
    },
    {
     "midnight": 1456808400,
-    "peoplehours": 18.716666666666665
+    "peoplehours": 18.716666666666665,
+    "blackhours": 0.0,
+    "bluehours": 0.0,
+    "whitehours": 18.716666666666665
    },
    {
     "midnight": 1456894800,
-    "peoplehours": 1.3666666666666667
+    "peoplehours": 1.3666666666666667,
+    "blackhours": 0.0,
+    "bluehours": 0.0,
+    "whitehours": 1.3666666666666667
    }
   ],
   "startday": 17
@@ -11583,95 +11826,164 @@
   "days": [
    {
     "midnight": 1484110800,
-    "peoplehours": 1.9994444444444446
+    "peoplehours": 1.9994444444444446,
+    "blackhours": 1.9994444444444446,
+    "bluehours": 0.0,
+    "whitehours": 0.0
    },
    {
     "midnight": 1484197200,
-    "peoplehours": 84.0
+    "peoplehours": 84.0,
+    "blackhours": 84.0,
+    "bluehours": 0.0,
+    "whitehours": 0.0
    },
    {
     "midnight": 1484283600,
-    "peoplehours": 84.0
+    "peoplehours": 84.0,
+    "blackhours": 84.0,
+    "bluehours": 0.0,
+    "whitehours": 0.0
    },
    {
     "midnight": 1484370000,
-    "peoplehours": 84.0
+    "peoplehours": 84.0,
+    "blackhours": 84.0,
+    "bluehours": 0.0,
+    "whitehours": 0.0
    },
    {
     "midnight": 1484456400,
-    "peoplehours": 76.50055555555556
+    "peoplehours": 76.50055555555556,
+    "blackhours": 76.50055555555556,
+    "bluehours": 0.0,
+    "whitehours": 0.0
    },
    {
     "midnight": 1484542800,
-    "peoplehours": 82.63055555555555
+    "peoplehours": 82.63055555555555,
+    "blackhours": 82.63055555555555,
+    "bluehours": 0.0,
+    "whitehours": 0.0
    },
    {
     "midnight": 1484629200,
-    "peoplehours": 82.86944444444445
+    "peoplehours": 82.86944444444445,
+    "blackhours": 82.86944444444445,
+    "bluehours": 0.0,
+    "whitehours": 0.0
    },
    {
     "midnight": 1484715600,
-    "peoplehours": 74.0661111111111
+    "peoplehours": 74.0661111111111,
+    "blackhours": 74.0661111111111,
+    "bluehours": 0.0,
+    "whitehours": 0.0
    },
    {
     "midnight": 1484802000,
-    "peoplehours": 50.51694444444445
+    "peoplehours": 50.51694444444445,
+    "blackhours": 49.76722222222222,
+    "bluehours": 0.7497222222222223,
+    "whitehours": 0.0
    },
    {
     "midnight": 1484888400,
-    "peoplehours": 41.233333333333334
+    "peoplehours": 41.233333333333334,
+    "blackhours": 0.0,
+    "bluehours": 41.233333333333334,
+    "whitehours": 0.0
    },
    {
     "midnight": 1484974800,
-    "peoplehours": 31.900277777777777
+    "peoplehours": 31.900277777777777,
+    "blackhours": 0.0,
+    "bluehours": 31.900277777777777,
+    "whitehours": 0.0
    },
    {
     "midnight": 1485061200,
-    "peoplehours": 9.5
+    "peoplehours": 9.5,
+    "blackhours": 0.0,
+    "bluehours": 9.5,
+    "whitehours": 0.0
    },
    {
     "midnight": 1485147600,
-    "peoplehours": 16.333333333333332
+    "peoplehours": 16.333333333333332,
+    "blackhours": 0.0,
+    "bluehours": 16.333333333333332,
+    "whitehours": 0.0
    },
    {
     "midnight": 1485234000,
-    "peoplehours": 47.4
+    "peoplehours": 47.4,
+    "blackhours": 0.0,
+    "bluehours": 47.4,
+    "whitehours": 0.0
    },
    {
     "midnight": 1485320400,
-    "peoplehours": 45.81638888888889
+    "peoplehours": 45.81638888888889,
+    "blackhours": 0.0,
+    "bluehours": 45.81638888888889,
+    "whitehours": 0.0
    },
    {
     "midnight": 1485406800,
-    "peoplehours": 34.85
+    "peoplehours": 34.85,
+    "blackhours": 0.0,
+    "bluehours": 34.85,
+    "whitehours": 0.0
    },
    {
     "midnight": 1485493200,
-    "peoplehours": 38.416666666666664
+    "peoplehours": 38.416666666666664,
+    "blackhours": 0.0,
+    "bluehours": 38.416666666666664,
+    "whitehours": 0.0
    },
    {
     "midnight": 1485579600,
-    "peoplehours": 23.2
+    "peoplehours": 23.2,
+    "blackhours": 0.0,
+    "bluehours": 23.2,
+    "whitehours": 0.0
    },
    {
     "midnight": 1485666000,
-    "peoplehours": 37.09861111111111
+    "peoplehours": 37.09861111111111,
+    "blackhours": 0.0,
+    "bluehours": 37.09861111111111,
+    "whitehours": 0.0
    },
    {
     "midnight": 1485752400,
-    "peoplehours": 41.485
+    "peoplehours": 41.485,
+    "blackhours": 0.0,
+    "bluehours": 41.485,
+    "whitehours": 0.0
    },
    {
     "midnight": 1485838800,
-    "peoplehours": 49.18333333333333
+    "peoplehours": 49.18333333333333,
+    "blackhours": 0.0,
+    "bluehours": 49.18333333333333,
+    "whitehours": 0.0
    },
    {
     "midnight": 1485925200,
-    "peoplehours": 49.79972222222222
+    "peoplehours": 49.79972222222222,
+    "blackhours": 0.0,
+    "bluehours": 49.79972222222222,
+    "whitehours": 0.0
    },
    {
     "midnight": 1486011600,
-    "peoplehours": 24.433611111111112
+    "peoplehours": 24.433611111111112,
+    "blackhours": 0.0,
+    "bluehours": 24.433611111111112,
+    "whitehours": 0.0
    }
   ],
   "startday": 11
@@ -16296,171 +16608,297 @@
   "days": [
    {
     "midnight": 1515733200,
-    "peoplehours": 1.9994444444444446
+    "peoplehours": 1.9994444444444446,
+    "blackhours": 1.9994444444444446,
+    "bluehours": 0.0,
+    "whitehours": 0.0
    },
    {
     "midnight": 1515819600,
-    "peoplehours": 51.900555555555556
+    "peoplehours": 51.900555555555556,
+    "blackhours": 51.900555555555556,
+    "bluehours": 0.0,
+    "whitehours": 0.0
    },
    {
     "midnight": 1515906000,
-    "peoplehours": 7.833333333333333
+    "peoplehours": 7.833333333333333,
+    "blackhours": 7.833333333333333,
+    "bluehours": 0.0,
+    "whitehours": 0.0
    },
    {
     "midnight": 1515992400,
-    "peoplehours": 10.8
+    "peoplehours": 10.8,
+    "blackhours": 10.8,
+    "bluehours": 0.0,
+    "whitehours": 0.0
    },
    {
     "midnight": 1516078800,
-    "peoplehours": 21.532777777777778
+    "peoplehours": 21.532777777777778,
+    "blackhours": 21.532777777777778,
+    "bluehours": 0.0,
+    "whitehours": 0.0
    },
    {
     "midnight": 1516165200,
-    "peoplehours": 2.8672222222222223
+    "peoplehours": 2.8672222222222223,
+    "blackhours": 2.8672222222222223,
+    "bluehours": 0.0,
+    "whitehours": 0.0
    },
    {
     "midnight": 1516251600,
-    "peoplehours": 0.0
+    "peoplehours": 0.0,
+    "blackhours": 0.0,
+    "bluehours": 0.0,
+    "whitehours": 0.0
    },
    {
     "midnight": 1516338000,
-    "peoplehours": 0.0
+    "peoplehours": 0.0,
+    "blackhours": 0.0,
+    "bluehours": 0.0,
+    "whitehours": 0.0
    },
    {
     "midnight": 1516424400,
-    "peoplehours": 6.4
+    "peoplehours": 6.4,
+    "blackhours": 6.4,
+    "bluehours": 0.0,
+    "whitehours": 0.0
    },
    {
     "midnight": 1516510800,
-    "peoplehours": 58.56666666666667
+    "peoplehours": 58.56666666666667,
+    "blackhours": 58.56666666666667,
+    "bluehours": 0.0,
+    "whitehours": 0.0
    },
    {
     "midnight": 1516597200,
-    "peoplehours": 62.266666666666666
+    "peoplehours": 62.266666666666666,
+    "blackhours": 62.266666666666666,
+    "bluehours": 0.0,
+    "whitehours": 0.0
    },
    {
     "midnight": 1516683600,
-    "peoplehours": 19.133333333333333
+    "peoplehours": 19.133333333333333,
+    "blackhours": 19.133333333333333,
+    "bluehours": 0.0,
+    "whitehours": 0.0
    },
    {
     "midnight": 1516770000,
-    "peoplehours": 61.96611111111111
+    "peoplehours": 61.96611111111111,
+    "blackhours": 61.96611111111111,
+    "bluehours": 0.0,
+    "whitehours": 0.0
    },
    {
     "midnight": 1516856400,
-    "peoplehours": 57.43333333333333
+    "peoplehours": 57.43333333333333,
+    "blackhours": 57.43333333333333,
+    "bluehours": 0.0,
+    "whitehours": 0.0
    },
    {
     "midnight": 1516942800,
-    "peoplehours": 61.00027777777778
+    "peoplehours": 61.00027777777778,
+    "blackhours": 60.00055555555556,
+    "bluehours": 0.9997222222222223,
+    "whitehours": 0.0
    },
    {
     "midnight": 1517029200,
-    "peoplehours": 33.500277777777775
+    "peoplehours": 33.500277777777775,
+    "blackhours": 0.0,
+    "bluehours": 33.500277777777775,
+    "whitehours": 0.0
    },
    {
     "midnight": 1517115600,
-    "peoplehours": 7.3163888888888895
+    "peoplehours": 7.3163888888888895,
+    "blackhours": 0.0,
+    "bluehours": 7.3163888888888895,
+    "whitehours": 0.0
    },
    {
     "midnight": 1517202000,
-    "peoplehours": 33.083333333333336
+    "peoplehours": 33.083333333333336,
+    "blackhours": 0.0,
+    "bluehours": 33.083333333333336,
+    "whitehours": 0.0
    },
    {
     "midnight": 1517288400,
-    "peoplehours": 33.86694444444444
+    "peoplehours": 33.86694444444444,
+    "blackhours": 0.0,
+    "bluehours": 33.86694444444444,
+    "whitehours": 0.0
    },
    {
     "midnight": 1517374800,
-    "peoplehours": 11.083333333333334
+    "peoplehours": 11.083333333333334,
+    "blackhours": 0.0,
+    "bluehours": 11.083333333333334,
+    "whitehours": 0.0
    },
    {
     "midnight": 1517461200,
-    "peoplehours": 0.0
+    "peoplehours": 0.0,
+    "blackhours": 0.0,
+    "bluehours": 0.0,
+    "whitehours": 0.0
    },
    {
     "midnight": 1517547600,
-    "peoplehours": 0.0
+    "peoplehours": 0.0,
+    "blackhours": 0.0,
+    "bluehours": 0.0,
+    "whitehours": 0.0
    },
    {
     "midnight": 1517634000,
-    "peoplehours": 0.0
+    "peoplehours": 0.0,
+    "blackhours": 0.0,
+    "bluehours": 0.0,
+    "whitehours": 0.0
    },
    {
     "midnight": 1517720400,
-    "peoplehours": 0.0
+    "peoplehours": 0.0,
+    "blackhours": 0.0,
+    "bluehours": 0.0,
+    "whitehours": 0.0
    },
    {
     "midnight": 1517806800,
-    "peoplehours": 0.0
+    "peoplehours": 0.0,
+    "blackhours": 0.0,
+    "bluehours": 0.0,
+    "whitehours": 0.0
    },
    {
     "midnight": 1517893200,
-    "peoplehours": 0.0
+    "peoplehours": 0.0,
+    "blackhours": 0.0,
+    "bluehours": 0.0,
+    "whitehours": 0.0
    },
    {
     "midnight": 1517979600,
-    "peoplehours": 0.0
+    "peoplehours": 0.0,
+    "blackhours": 0.0,
+    "bluehours": 0.0,
+    "whitehours": 0.0
    },
    {
     "midnight": 1518066000,
-    "peoplehours": 0.0
+    "peoplehours": 0.0,
+    "blackhours": 0.0,
+    "bluehours": 0.0,
+    "whitehours": 0.0
    },
    {
     "midnight": 1518152400,
-    "peoplehours": 0.9163888888888889
+    "peoplehours": 0.9163888888888889,
+    "blackhours": 0.0,
+    "bluehours": 0.0,
+    "whitehours": 0.9163888888888889
    },
    {
     "midnight": 1518238800,
-    "peoplehours": 23.333333333333332
+    "peoplehours": 23.333333333333332,
+    "blackhours": 0.0,
+    "bluehours": 0.0,
+    "whitehours": 23.333333333333332
    },
    {
     "midnight": 1518325200,
-    "peoplehours": 15.5
+    "peoplehours": 15.5,
+    "blackhours": 0.0,
+    "bluehours": 0.0,
+    "whitehours": 15.5
    },
    {
     "midnight": 1518411600,
-    "peoplehours": 23.166666666666668
+    "peoplehours": 23.166666666666668,
+    "blackhours": 0.0,
+    "bluehours": 0.0,
+    "whitehours": 23.166666666666668
    },
    {
     "midnight": 1518498000,
-    "peoplehours": 26.2
+    "peoplehours": 26.2,
+    "blackhours": 0.0,
+    "bluehours": 0.0,
+    "whitehours": 26.2
    },
    {
     "midnight": 1518584400,
-    "peoplehours": 17.233333333333334
+    "peoplehours": 17.233333333333334,
+    "blackhours": 0.0,
+    "bluehours": 0.0,
+    "whitehours": 17.233333333333334
    },
    {
     "midnight": 1518670800,
-    "peoplehours": 20.483333333333334
+    "peoplehours": 20.483333333333334,
+    "blackhours": 0.0,
+    "bluehours": 0.0,
+    "whitehours": 20.483333333333334
    },
    {
     "midnight": 1518757200,
-    "peoplehours": 17.45
+    "peoplehours": 17.45,
+    "blackhours": 0.0,
+    "bluehours": 0.0,
+    "whitehours": 17.45
    },
    {
     "midnight": 1518843600,
-    "peoplehours": 21.883333333333333
+    "peoplehours": 21.883333333333333,
+    "blackhours": 0.0,
+    "bluehours": 0.0,
+    "whitehours": 21.883333333333333
    },
    {
     "midnight": 1518930000,
-    "peoplehours": 19.150277777777777
+    "peoplehours": 19.150277777777777,
+    "blackhours": 0.0,
+    "bluehours": 0.0,
+    "whitehours": 19.150277777777777
    },
    {
     "midnight": 1519016400,
-    "peoplehours": 17.016666666666666
+    "peoplehours": 17.016666666666666,
+    "blackhours": 0.0,
+    "bluehours": 0.0,
+    "whitehours": 17.016666666666666
    },
    {
     "midnight": 1519102800,
-    "peoplehours": 23.183333333333334
+    "peoplehours": 23.183333333333334,
+    "blackhours": 0.0,
+    "bluehours": 0.0,
+    "whitehours": 23.183333333333334
    },
    {
     "midnight": 1519189200,
-    "peoplehours": 18.616666666666667
+    "peoplehours": 18.616666666666667,
+    "blackhours": 0.0,
+    "bluehours": 0.0,
+    "whitehours": 18.616666666666667
    },
    {
     "midnight": 1519275600,
-    "peoplehours": 11.85
+    "peoplehours": 11.85,
+    "blackhours": 0.0,
+    "bluehours": 0.0,
+    "whitehours": 11.85
    }
   ],
   "startday": 12
@@ -20454,139 +20892,241 @@
   "days": [
    {
     "midnight": 1547269200,
-    "peoplehours": 1.4
+    "peoplehours": 1.4,
+    "blackhours": 1.4,
+    "bluehours": 0.0,
+    "whitehours": 0.0
    },
    {
     "midnight": 1547355600,
-    "peoplehours": 64.49944444444445
+    "peoplehours": 64.49944444444445,
+    "blackhours": 64.49944444444445,
+    "bluehours": 0.0,
+    "whitehours": 0.0
    },
    {
     "midnight": 1547442000,
-    "peoplehours": 73.3
+    "peoplehours": 73.3,
+    "blackhours": 73.3,
+    "bluehours": 0.0,
+    "whitehours": 0.0
    },
    {
     "midnight": 1547528400,
-    "peoplehours": 69.76722222222223
+    "peoplehours": 69.76722222222223,
+    "blackhours": 69.76722222222223,
+    "bluehours": 0.0,
+    "whitehours": 0.0
    },
    {
     "midnight": 1547614800,
-    "peoplehours": 69.83277777777776
+    "peoplehours": 69.83277777777776,
+    "blackhours": 69.83277777777776,
+    "bluehours": 0.0,
+    "whitehours": 0.0
    },
    {
     "midnight": 1547701200,
-    "peoplehours": 61.733333333333334
+    "peoplehours": 61.733333333333334,
+    "blackhours": 61.733333333333334,
+    "bluehours": 0.0,
+    "whitehours": 0.0
    },
    {
     "midnight": 1547787600,
-    "peoplehours": 72.0
+    "peoplehours": 72.0,
+    "blackhours": 72.0,
+    "bluehours": 0.0,
+    "whitehours": 0.0
    },
    {
     "midnight": 1547874000,
-    "peoplehours": 7.900555555555556
+    "peoplehours": 7.900555555555556,
+    "blackhours": 7.900555555555556,
+    "bluehours": 0.0,
+    "whitehours": 0.0
    },
    {
     "midnight": 1547960400,
-    "peoplehours": 18.066666666666666
+    "peoplehours": 18.066666666666666,
+    "blackhours": 18.066666666666666,
+    "bluehours": 0.0,
+    "whitehours": 0.0
    },
    {
     "midnight": 1548046800,
-    "peoplehours": 8.2
+    "peoplehours": 8.2,
+    "blackhours": 8.2,
+    "bluehours": 0.0,
+    "whitehours": 0.0
    },
    {
     "midnight": 1548133200,
-    "peoplehours": 11.333333333333334
+    "peoplehours": 11.333333333333334,
+    "blackhours": 11.333333333333334,
+    "bluehours": 0.0,
+    "whitehours": 0.0
    },
    {
     "midnight": 1548219600,
-    "peoplehours": 52.83305555555555
+    "peoplehours": 52.83305555555555,
+    "blackhours": 51.833333333333336,
+    "bluehours": 0.9997222222222223,
+    "whitehours": 0.0
    },
    {
     "midnight": 1548306000,
-    "peoplehours": 39.083333333333336
+    "peoplehours": 39.083333333333336,
+    "blackhours": 0.0,
+    "bluehours": 39.083333333333336,
+    "whitehours": 0.0
    },
    {
     "midnight": 1548392400,
-    "peoplehours": 38.96694444444445
+    "peoplehours": 38.96694444444445,
+    "blackhours": 0.0,
+    "bluehours": 38.96694444444445,
+    "whitehours": 0.0
    },
    {
     "midnight": 1548478800,
-    "peoplehours": 10.083055555555555
+    "peoplehours": 10.083055555555555,
+    "blackhours": 0.0,
+    "bluehours": 10.083055555555555,
+    "whitehours": 0.0
    },
    {
     "midnight": 1548565200,
-    "peoplehours": 27.433611111111112
+    "peoplehours": 27.433611111111112,
+    "blackhours": 0.0,
+    "bluehours": 27.433611111111112,
+    "whitehours": 0.0
    },
    {
     "midnight": 1548651600,
-    "peoplehours": 28.86638888888889
+    "peoplehours": 28.86638888888889,
+    "blackhours": 0.0,
+    "bluehours": 28.86638888888889,
+    "whitehours": 0.0
    },
    {
     "midnight": 1548738000,
-    "peoplehours": 37.61666666666667
+    "peoplehours": 37.61666666666667,
+    "blackhours": 0.0,
+    "bluehours": 37.61666666666667,
+    "whitehours": 0.0
    },
    {
     "midnight": 1548824400,
-    "peoplehours": 17.48361111111111
+    "peoplehours": 17.48361111111111,
+    "blackhours": 0.0,
+    "bluehours": 17.48361111111111,
+    "whitehours": 0.0
    },
    {
     "midnight": 1548910800,
-    "peoplehours": 8.3
+    "peoplehours": 8.3,
+    "blackhours": 0.0,
+    "bluehours": 8.3,
+    "whitehours": 0.0
    },
    {
     "midnight": 1548997200,
-    "peoplehours": 19.883055555555554
+    "peoplehours": 19.883055555555554,
+    "blackhours": 0.0,
+    "bluehours": 19.883055555555554,
+    "whitehours": 0.0
    },
    {
     "midnight": 1549083600,
-    "peoplehours": 30.6
+    "peoplehours": 30.6,
+    "blackhours": 0.0,
+    "bluehours": 30.6,
+    "whitehours": 0.0
    },
    {
     "midnight": 1549170000,
-    "peoplehours": 33.10027777777778
+    "peoplehours": 33.10027777777778,
+    "blackhours": 0.0,
+    "bluehours": 32.500277777777775,
+    "whitehours": 0.6
    },
    {
     "midnight": 1549256400,
-    "peoplehours": 23.149722222222223
+    "peoplehours": 23.149722222222223,
+    "blackhours": 0.0,
+    "bluehours": 0.0,
+    "whitehours": 23.149722222222223
    },
    {
     "midnight": 1549342800,
-    "peoplehours": 19.63361111111111
+    "peoplehours": 19.63361111111111,
+    "blackhours": 0.0,
+    "bluehours": 0.0,
+    "whitehours": 19.63361111111111
    },
    {
     "midnight": 1549429200,
-    "peoplehours": 22.99972222222222
+    "peoplehours": 22.99972222222222,
+    "blackhours": 0.0,
+    "bluehours": 0.0,
+    "whitehours": 22.99972222222222
    },
    {
     "midnight": 1549515600,
-    "peoplehours": 19.466666666666665
+    "peoplehours": 19.466666666666665,
+    "blackhours": 0.0,
+    "bluehours": 0.0,
+    "whitehours": 19.466666666666665
    },
    {
     "midnight": 1549602000,
-    "peoplehours": 23.866666666666667
+    "peoplehours": 23.866666666666667,
+    "blackhours": 0.0,
+    "bluehours": 0.0,
+    "whitehours": 23.866666666666667
    },
    {
     "midnight": 1549688400,
-    "peoplehours": 19.73361111111111
+    "peoplehours": 19.73361111111111,
+    "blackhours": 0.0,
+    "bluehours": 0.0,
+    "whitehours": 19.73361111111111
    },
    {
     "midnight": 1549774800,
-    "peoplehours": 10.633055555555556
+    "peoplehours": 10.633055555555556,
+    "blackhours": 0.0,
+    "bluehours": 0.0,
+    "whitehours": 10.633055555555556
    },
    {
     "midnight": 1549861200,
-    "peoplehours": 19.9
+    "peoplehours": 19.9,
+    "blackhours": 0.0,
+    "bluehours": 0.0,
+    "whitehours": 19.9
    },
    {
     "midnight": 1549947600,
-    "peoplehours": 19.50027777777778
+    "peoplehours": 19.50027777777778,
+    "blackhours": 0.0,
+    "bluehours": 0.0,
+    "whitehours": 19.50027777777778
    },
    {
     "midnight": 1550034000,
-    "peoplehours": 20.66638888888889
+    "peoplehours": 20.66638888888889,
+    "blackhours": 0.0,
+    "bluehours": 0.0,
+    "whitehours": 20.66638888888889
    },
    {
     "midnight": 1550120400,
-    "peoplehours": 13.650277777777777
+    "peoplehours": 13.650277777777777,
+    "blackhours": 0.0,
+    "bluehours": 0.0,
+    "whitehours": 13.650277777777777
    }
   ],
   "startday": 12
