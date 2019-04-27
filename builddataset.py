@@ -20,6 +20,7 @@ def main():
     verify_grace() #ensure datasets are valid
     data = {year:{} for year in YEARS} #init
     data = weatherToJSON(tentchecksToJSON(datesToJSON(data))) #collect other data
+    weatherDict = getWeatherDict() #dict for looking up weather
 
     for year,yearData in data.items():
         yearData['year'] = year #redundantly store year
@@ -39,14 +40,32 @@ def main():
         inTent = True #don't start in tent
         periodIndex = -1 #index in PERIODs array
         done = False #is tenting 
+        weather = None #current weather (nearest hour)
+
+        #summary vars
+        totalPeopleSecs = 0
+        totalPrecip = 0
+        totalTemp = 0
 
         while currDay < endTime:
             curr = currDay
-            peopleSec = 0
+            peopleSec = blackSec = blueSec = whiteSec = 0
             while curr < currDay + DAY_LENGTH:
+                if curr in weatherDict:
+                    weather = weatherDict[curr]
+
                 if inTent and not done:
                     peopleSec += people
-                    #TODO: later, add temp and percip here
+                    if PERIODS[periodIndex] == 'black':
+                        blackSec += people
+                    elif PERIODS[periodIndex] == 'blue':
+                        blueSec += people
+                    elif PERIODS[periodIndex] == 'white':
+                        whiteSec += people
+                    totalPeopleSecs += people
+                    
+                    totalPrecip += float(weather['Precipitation'])*people
+                    totalTemp += float(weather['Temperature'])*people
                 
                 #hackily handle the first day/night value since 11 am is always day
                 if isNight is None and curr - currDay > DAY_LENGTH*11/24:
@@ -67,10 +86,14 @@ def main():
 
             yearData['days'].append({
                 'midnight': currDay,
-                'peoplehours': peopleSec/60/60
+                'peoplehours': peopleSec/60/60,
+                'blackhours': blackSec/60/60,
+                'bluehours': blueSec/60/60,
+                'whitehours': whiteSec/60/60
             })
             currDay += DAY_LENGTH #go to next day
-        
+
+        print(year, totalPeopleSecs/60/60/12, totalPrecip/totalPeopleSecs, totalTemp/totalPeopleSecs, sep=',')
         # print('finished',year) #write out
     
     # only keep needed keys
@@ -93,6 +116,9 @@ def verify_grace():
     #check that sequence of starts and ends is sequential
     for i in range(1,len(dts)):
         assert dts[i]>dts[i-1], 'invalid sequence of grace times'
+
+def getWeatherDict():
+    return {dtToUnix(sToDT(row['DateTime'])):row for row in readData('weather.csv')}
 
 def datesToJSON(out = {year:{} for year in YEARS}):
     periodEventKeys = [per+'_start' for per in PERIODS] + ['white_end']
